@@ -11,9 +11,9 @@ Each project is listed below with links to:
 ---
 ## Project Index
 
-| #   | Project Name | GitHub Repo                                          | Live Demo                                           |
-| --- | ------------ | ---------------------------------------------------- | --------------------------------------------------- |
-| 1   | Project One  | [Repo](https://github.com/your-username/project-one) | [Demo](https://your-username.github.io/project-one) |
+| #   | Project Name | GitHub Repo             | Live Demo                          |
+| --- | ------------ | ----------------------- | ---------------------------------- |
+| 1   | Pure React   | [Repo](./01-pure-react) | [Demo](./01-pure-react/index.html) |
 
 ---
 
