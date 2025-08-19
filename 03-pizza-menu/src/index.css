@@ -178,6 +178,11 @@ body {
   background-color: #e9bb24;
 }
 
+@media screen and (max-width: 600px) {
+  .pizzas {
+    grid-template-columns: 1fr;
+  }
+}
 /*
 SPACING SYSTEM (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128
