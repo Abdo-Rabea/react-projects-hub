@@ -11,10 +11,11 @@ Each project is listed below with links to:
 ---
 ## Project Index
 
-| #   | Project Name | GitHub Repo             | Live Demo                          |
-| --- | ------------ | ----------------------- | ---------------------------------- |
-| 1   | Pure React   | [Repo](./01-pure-react) | [Demo](./01-pure-react/index.html) |
-
+| #   | Project Name | GitHub Repo             | Live Demo                                     |
+| --- | ------------ | ----------------------- | --------------------------------------------- |
+| 1   | Pure React   | [Repo](./01-pure-react) | [Demo](./01-pure-react/index.html)            |
+| 2   | Pizza Menu   | [Repo](./03-pizza-menu) | [Demo](https://fast-pizza-menue.netlify.app/) |
+ 
 ---
 ## Challenge Index
 
