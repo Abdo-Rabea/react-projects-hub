@@ -18,9 +18,10 @@ Each project is listed below with links to:
 ---
 ## Challenge Index
 
-| #   | Challenge Name | GitHub Repo \| Sandbox                                                              | Live Demo                                                                        |
-| --- | -------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| 1   | dev-profile    | [Sandbox](https://codesandbox.io/p/sandbox/cranky-tess-8ftl7l?file=%2Fsrc%2FApp.js) | [Demo](https://codesandbox.io/p/sandbox/cranky-tess-8ftl7l?file=%2Fsrc%2FApp.js) |
+| #   | Challenge Name | GitHub Repo \| Sandbox                                                                | Live Demo                                                                          |
+| --- | -------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| 1   | dev-profile    | [Sandbox](https://codesandbox.io/p/sandbox/cranky-tess-8ftl7l?file=%2Fsrc%2FApp.js)   | [Demo](https://codesandbox.io/p/sandbox/cranky-tess-8ftl7l?file=%2Fsrc%2FApp.js)   |
+| 2   | dev-profile-v2 | [Sandbox](https://codesandbox.io/p/sandbox/keen-elbakyan-5g3657?file=%2Fsrc%2FApp.js) | [Demo](https://codesandbox.io/p/sandbox/keen-elbakyan-5g3657?file=%2Fsrc%2FApp.js) |
 
 ---
 
