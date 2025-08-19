@@ -16,6 +16,13 @@ Each project is listed below with links to:
 | 1   | Pure React   | [Repo](./01-pure-react) | [Demo](./01-pure-react/index.html) |
 
 ---
+## Challenge Index
+
+| #   | Challenge Name | GitHub Repo \| Sandbox                                                              | Live Demo                                                                        |
+| --- | -------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1   | dev-profile    | [Sandbox](https://codesandbox.io/p/sandbox/cranky-tess-8ftl7l?file=%2Fsrc%2FApp.js) | [Demo](https://codesandbox.io/p/sandbox/cranky-tess-8ftl7l?file=%2Fsrc%2FApp.js) |
+
+---
 
 ## Why React?
 
