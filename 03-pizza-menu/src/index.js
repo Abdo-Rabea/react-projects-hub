@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+// * webpack will import the styles in our application
+// * however you can still add link in index.html
+import "./index.css";
 
 const pizzaData = [
   {
@@ -48,7 +51,7 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
@@ -63,38 +66,45 @@ function Header() {
   );
 }
 function Menu() {
+  const numPizzas = pizzaData.length;
   return (
     <main className="menu">
       <h2>our menu</h2>
-      <p>
-        Authentic Italian cuisine. 6 creative dishes to choose from. All from
-        our stone oven, all organic, all delicious.
-      </p>
-      <Pizzas />
+      {numPizzas > 0 ? (
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone oven, all organic, all delicious.
+          </p>
+          <Pizzas />
+        </>
+      ) : (
+        <p>We're still working on our menu. Please come back later :)</p>
+      )}
     </main>
   );
 }
 
 function Pizzas() {
   return (
-    <div className="pizzas">
+    <ul className="pizzas">
       {pizzaData.map((pizza) => (
-        <Pizza pizza={pizza} />
+        <Pizza pizza={pizza} key={pizza.name} />
       ))}
-    </div>
+    </ul>
   );
 }
 
 function Pizza({ pizza }) {
   return (
-    <div className={`pizza ${pizza.soldOut ? "sold-out" : ""}`}>
+    <li className={`pizza ${pizza.soldOut ? "sold-out" : ""}`}>
       <img src={pizza.photoName} alt={pizza.name} />
       <div>
         <h3>{pizza.name}</h3>
         <p>{pizza.ingredients}</p>
         <span>{pizza.soldOut ? "Sold Out" : pizza.price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
