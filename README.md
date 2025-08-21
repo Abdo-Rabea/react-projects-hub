@@ -15,6 +15,7 @@ Each project is listed below with links to:
 | --- | ------------ | ----------------------- | --------------------------------------------- |
 | 1   | Pure React   | [Repo](./01-pure-react) | [Demo](./01-pure-react/index.html)            |
 | 2   | Pizza Menu   | [Repo](./03-pizza-menu) | [Demo](https://fast-pizza-menue.netlify.app/) |
+| 3   | Steps        | [Repo](./04-steps)      | [Demo](https://steps1.netlify.app/)           |
  
 ---
 ## Challenge Index
