@@ -2,8 +2,8 @@ import { useState } from "react";
 
 function App() {
   const [items, setItems] = useState([
-    { quantity: 3, description: "test1", id: 1, packed: true },
-    { quantity: 4, description: "test2", id: 2, packed: false },
+    { id: 1, description: "Passports", quantity: 2, packed: false },
+    { id: 2, description: "Socks", quantity: 12, packed: false },
   ]);
 
   const packedItemsNum = items.reduce((acc, item) => acc + item.packed, 0);
@@ -20,14 +20,14 @@ function App() {
 
   function togglePackingStatus(id) {
     setItems((itms) =>
-      itms.map((item) => {
-        return { ...item, packed: item.id === id ? !item.packed : item.packed };
-      })
+      itms.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
     );
   }
 
   function handleDeleteItem(id) {
-    // ! it will map to the same objects in the heap
+    // ! it will map to the same objects in the heap which is totally fine as long as you use setItems and don't delete item from the items array directly (exp. items.splice or items.filter)
     setItems((itms) =>
       itms.filter((item) => {
         return item.id !== id;
