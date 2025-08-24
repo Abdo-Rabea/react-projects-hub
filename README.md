@@ -28,7 +28,8 @@ Each project is listed below with links to:
 | 3   | Date Counter    | [Sandbox](https://codesandbox.io/p/sandbox/jolly-feynman-zvqvxj?file=%2Fsrc%2FApp.js%3A6%2C39)                                                                 | [Demo](https://zvqvxj.csb.app/)                                                    |
 | 4   | flashcards      | [Sandbox](https://codesandbox.io/p/sandbox/pensive-feynman-klxhh4)                                                                                             | [Demo](https://klxhh4.csb.app/)                                                    |
 | 5   | Date Counter v2 | [Sandbox](https://codesandbox.io/p/devbox/react-challenge-date-counter-forked-7m77kj?file=%2Fsrc%2FApp.js%3A29%2C11&workspaceId=ws_3NBMZ7KK8AnpBAeUSmFiZZ)     | [Demo](https://7m77kj.csb.app/)                                                    |
-| 5   | Accordion       | [Sandbox](https://codesandbox.io/p/devbox/react-exercise-accordion-starter-forked-w4znct?file=%2Fsrc%2FApp.js%3A22%2C18&workspaceId=ws_3NBMZ7KK8AnpBAeUSmFiZZ) | [Demo](https://w4znct.csb.app/)                                                    |
+| 6   | Accordion       | [Sandbox](https://codesandbox.io/p/devbox/react-exercise-accordion-starter-forked-w4znct?file=%2Fsrc%2FApp.js%3A22%2C18&workspaceId=ws_3NBMZ7KK8AnpBAeUSmFiZZ) | [Demo](https://w4znct.csb.app/)                                                    |
+| 7   | Accordion-v2    | [Sandbox](https://codesandbox.io/p/devbox/accordion-forked-jstqc6?file=%2Fsrc%2FApp.js%3A62%2C1&workspaceId=ws_3NBMZ7KK8AnpBAeUSmFiZZ)                         | [Demo](https://jstqc6.csb.app/)                                                    |
 
 ---
 
