@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const initialFriends = [
   {
@@ -62,6 +62,7 @@ function App() {
       </div>
       {openedBillId && (
         <SplitBillForm
+          key={openedBillId}
           name={openedFreind}
           openedBillId={openedBillId}
           onUpdateBalance={handleUpdateBalance}
@@ -75,6 +76,15 @@ function SplitBillForm({ name, openedBillId, onUpdateBalance }) {
   const [expense, setExpense] = useState("");
   const [isMePaying, setIsMePaying] = useState(true);
   const freindExpense = billValue - expense;
+
+  // useEffect(
+  //   function () {
+  //     setBillValue("");
+  //     setExpense("");
+  //     setIsMePaying(true);
+  //   },
+  //   [openedBillId]
+  // );
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -191,7 +201,7 @@ function AddFreindForm({ onAddFreind }) {
     // simple validation
     if (!name || !image) return;
 
-    onAddFreind({ id: Date.now(), name, image, balance: 0 });
+    onAddFreind({ id: crypto.randomUUID(), name, image, balance: 0 });
 
     closeForm();
   }
