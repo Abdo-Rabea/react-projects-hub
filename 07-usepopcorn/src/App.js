@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Children, useState } from "react";
 
 const tempMovieData = [
   {
@@ -53,13 +53,28 @@ const average = (arr) =>
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState(tempMovieData);
+  const [watched, setWatched] = useState(tempWatchedData);
+
   function handleSetQuery(q) {
     setQuery(q);
   }
   return (
     <>
-      <QueryNav query={query} onSetQuery={handleSetQuery} movies={movies} />
-      <Main movies={movies} />
+      <QueryNav>
+        {/* wow no prop drilling */}
+        <QueryInput query={query} onSetQuery={handleSetQuery} />
+        <NumResults moviesNum={movies.length} />
+      </QueryNav>
+
+      <Main>
+        <Box>
+          <MoviesList movies={movies} />
+        </Box>
+        <Box>
+          <WatchedMoviesSummary watched={watched} />
+          <WatchedMoviesList watched={watched} />
+        </Box>
+      </Main>
     </>
   );
 }
@@ -73,12 +88,11 @@ function ToggleButton({ onToggle, isOpen }) {
   );
 }
 
-function QueryNav({ query, onSetQuery, movies }) {
+function QueryNav({ children }) {
   return (
     <nav className="nav-bar">
       <Logo />
-      <QueryInput query={query} onSetQuery={onSetQuery} />
-      <NumResults moviesNum={movies.length} />
+      {children}
     </nav>
   );
 }
@@ -111,16 +125,11 @@ function NumResults({ moviesNum }) {
   );
 }
 
-function Main({ movies }) {
-  return (
-    <main className="main">
-      <MoviesBox movies={movies} />
-      <WatchedMoviesBox />
-    </main>
-  );
+function Main({ children }) {
+  return <main className="main">{children}</main>;
 }
 
-function MoviesBox({ movies }) {
+function Box({ children }) {
   const [isOpen, setIsOpen] = useState(true);
   function handleToggleOpen() {
     setIsOpen((o) => !o);
@@ -128,7 +137,7 @@ function MoviesBox({ movies }) {
   return (
     <div className="box">
       <ToggleButton onToggle={handleToggleOpen} isOpen={isOpen} />
-      {isOpen && <MoviesList movies={movies} />}
+      {isOpen && children}
     </div>
   );
 }
@@ -137,7 +146,7 @@ function MoviesList({ movies }) {
   return (
     <ul className="list">
       {movies?.map((movie) => (
-        <MovieItem movie={movie} />
+        <MovieItem movie={movie} key={movie.imdbID} />
       ))}
     </ul>
   );
@@ -156,32 +165,12 @@ function MovieItem({ movie }) {
     </li>
   );
 }
-function WatchedMoviesBox({}) {
-  const [watched, setWatched] = useState(tempWatchedData);
-
-  const [isOpen, setIsOpen] = useState(true);
-
-  function handleToggleOpen() {
-    setIsOpen((o) => !o);
-  }
-  return (
-    <div className="box">
-      <ToggleButton onToggle={handleToggleOpen} isOpen={isOpen} />
-      {isOpen && (
-        <>
-          <WatchedMoviesSummary watched={watched} />
-          <WatchedMoviesList watched={watched} />
-        </>
-      )}
-    </div>
-  );
-}
 
 function WatchedMoviesList({ watched }) {
   return (
     <ul className="list">
       {watched.map((movie) => (
-        <WatchedMovieItem movie={movie} />
+        <WatchedMovieItem movie={movie} key={movie.imdbID} />
       ))}
     </ul>
   );
