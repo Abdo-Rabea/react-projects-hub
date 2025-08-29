@@ -11,14 +11,16 @@ Each project is listed below with links to:
 ---
 ## Project Index
 
-| #   | Project Name | GitHub Repo              | Live Demo                                      |
-| --- | ------------ | ------------------------ | ---------------------------------------------- |
-| 1   | Pure React   | [Repo](./01-pure-react)  | [Demo](./01-pure-react/index.html)             |
-| 2   | Pizza Menu   | [Repo](./03-pizza-menu)  | [Demo](https://fast-pizza-menue.netlify.app/)  |
-| 3   | Steps        | [Repo](./04-steps)       | [Demo](https://steps1.netlify.app/)            |
-| 4   | Travel List  | [Repo](./05-travel-list) | [Demo](https://travel-lis.netlify.app/)        |
-| 5   | Eat & Split  | [Repo](./06-eat-n-split) | [Demo](https://eat-n-split-rabea.netlify.app/) |
-| 6   | usePopcorn   | [Repo](./07-usepopcorn)  | [Demo](https://usepopcorn-rabea.netlify.app/)  |
+| #   | Project Name    | GitHub Repo                  | Live Demo                                          |
+| --- | --------------- | ---------------------------- | -------------------------------------------------- |
+| 1   | Pure React      | [Repo](./01-pure-react)      | [Demo](./01-pure-react/index.html)                 |
+| 2   | Pizza Menu      | [Repo](./03-pizza-menu)      | [Demo](https://fast-pizza-menue.netlify.app/)      |
+| 3   | Steps           | [Repo](./04-steps)           | [Demo](https://steps1.netlify.app/)                |
+| 4   | Travel List     | [Repo](./05-travel-list)     | [Demo](https://travel-lis.netlify.app/)            |
+| 5   | Eat & Split     | [Repo](./06-eat-n-split)     | [Demo](https://eat-n-split-rabea.netlify.app/)     |
+| 6   | usePopcorn      | [Repo](./07-usepopcorn)      | [Demo](https://usepopcorn-rabea.netlify.app/)      |
+| 7   | How React Works | [Repo](./08-how-react-works) | [Demo](https://how-react-works-rabea.netlify.app/) |
+|     |                 |                              |                                                    |
  
 ---
 ## Challenge Index
