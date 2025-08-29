@@ -1,70 +1,39 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# How React Works
 
-## Available Scripts
+A React playground app built as part of **The Ultimate React Course by Jonas Schmedtmann**.  
+This project demonstrates key React concepts, including **state batching**, **keys**, **event handling**, **state reset**, and more, through a simple **tabbed interface**.
 
-In the project directory, you can run:
+---
+## Features
 
-### `npm start`
+- **Tabbed UI** with 4 tabs:
+    - Tabs 1–3 show educational content with interactive controls.
+    - Tab 4 demonstrates **state reset** when switching between entirely different UI.
+- ❤️ **Like counter** with single and triple increment buttons to explore **state updates and batching**.
+- Toggle **show/hide content** dynamically.   
+- **Undo buttons** (instant and delayed) to test **React’s batching behavior** in asynchronous code (e.g., `setTimeout`).
+- **Key prop exploration**: Switching tabs resets the content’s internal state due to unique `key` usage.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+- **React 18+** (Hooks: `useState`)
+- **CSS** for simple styling and tabbed UI design
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Key Learnings
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Key Prop: How using unique keys causes React to **reset component state** when the same component re-render in the same location
+- state batching: how react batches the states' update inside event handle function, setTimeout and more to avoid wasted renders.
+- Event Handling: Writing clean handler functions and managing side effects.
+- State Reset: Switching tabs with different components demonstrates state isolation.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
+## Preview
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[demo](https://how-react-works-rabea.netlify.app/)
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![screen](./screen.png)

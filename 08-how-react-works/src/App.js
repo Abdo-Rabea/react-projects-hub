@@ -1,3 +1,5 @@
+//! most of the code of this project is copied from johans. repo for educational purpose.
+
 import { useState } from "react";
 
 const content = [
