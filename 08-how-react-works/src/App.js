@@ -39,7 +39,7 @@ function Tabbed({ content }) {
       </div>
 
       {activeTab <= 2 ? (
-        <TabContent item={content.at(activeTab)} />
+        <TabContent key={activeTab} item={content.at(activeTab)} />
       ) : (
         <DifferentContent />
       )}
@@ -62,8 +62,24 @@ function TabContent({ item }) {
   const [showDetails, setShowDetails] = useState(true);
   const [likes, setLikes] = useState(0);
 
+  console.log("re-render");
   function handleInc() {
     setLikes(likes + 1);
+  }
+
+  function hanldeUndo() {
+    setLikes(0);
+    setShowDetails(true);
+  }
+
+  function handleTrippleInc() {
+    setLikes((l) => l + 3);
+  }
+
+  // in react 18 batching happens in setTimeout, addeventListner, promises,... not only inside handleFunction
+  function handleUndoLater() {
+    // side effect call it inside handler
+    setTimeout(hanldeUndo, 2000);
   }
 
   return (
@@ -79,13 +95,13 @@ function TabContent({ item }) {
         <div className="hearts-counter">
           <span>{likes} ❤️</span>
           <button onClick={handleInc}>+</button>
-          <button>+++</button>
+          <button onClick={handleTrippleInc}>+++</button>
         </div>
       </div>
 
       <div className="tab-undo">
-        <button>Undo</button>
-        <button>Undo in 2s</button>
+        <button onClick={hanldeUndo}>Undo</button>
+        <button onClick={handleUndoLater}>Undo in 2s</button>
       </div>
     </div>
   );
