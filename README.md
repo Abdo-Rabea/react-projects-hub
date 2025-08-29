@@ -18,6 +18,7 @@ Each project is listed below with links to:
 | 3   | Steps        | [Repo](./04-steps)       | [Demo](https://steps1.netlify.app/)            |
 | 4   | Travel List  | [Repo](./05-travel-list) | [Demo](https://travel-lis.netlify.app/)        |
 | 5   | Eat & Split  | [Repo](./06-eat-n-split) | [Demo](https://eat-n-split-rabea.netlify.app/) |
+| 6   | usePopcorn   | [Repo](./07-usepopcorn)  | [Demo](https://usepopcorn-rabea.netlify.app/)  |
  
 ---
 ## Challenge Index
