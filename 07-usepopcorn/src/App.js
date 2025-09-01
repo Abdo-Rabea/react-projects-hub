@@ -54,50 +54,13 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-  const [query, setQuery] = useState("interstellar");
+  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const [selectedId, setSelectedId] = useState(null);
-
-  useEffect(
-    function () {
-      async function getMovies() {
-        try {
-          setIsLoading(true);
-          setError(null);
-          const res = await fetch(
-            `https://www.omdbapi.com/?apikey=${key}&s=${query}`
-          );
-
-          //! to deal with other kinds of error(ex. 402) other than what fetch throws an error on
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching movies");
-
-          const data = await res.json();
-
-          if (data.Response === "False") {
-            throw new Error("No movies found");
-          }
-
-          setMovies(data.Search);
-        } catch (err) {
-          setError(err.message);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-      if (query.length <= 3) {
-        setMovies([]);
-        setError(null);
-        return;
-      }
-      getMovies();
-    },
-    [query]
-  );
 
   function handleSetQuery(q) {
     setQuery(q);
@@ -119,6 +82,53 @@ export default function App() {
   function handleDeleteWatchedMovie(id) {
     setWatched((movies) => movies.filter((movie) => movie.imdbID !== id));
   }
+
+  useEffect(
+    function () {
+      const controller = new AbortController();
+      const signal = controller.signal;
+      async function getMovies() {
+        try {
+          setIsLoading(true);
+          setError(null);
+          const res = await fetch(
+            `https://www.omdbapi.com/?apikey=${key}&s=${query}`,
+            { signal }
+          );
+
+          //! to deal with other kinds of error(ex. 402) other than what fetch throws an error on
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
+
+          const data = await res.json();
+
+          if (data.Response === "False") {
+            throw new Error("No movies found");
+          }
+
+          setMovies(data.Search);
+        } catch (err) {
+          if (err.name !== "AbortError") setError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+      if (query.length <= 3) {
+        setMovies([]);
+        setError(null);
+        return;
+      }
+
+      handleResetSelectedId();
+      getMovies();
+      return () => {
+        setError(null);
+        controller.abort();
+      };
+    },
+    [query]
+  );
+
   return (
     <>
       <QueryNav>
@@ -192,6 +202,21 @@ function MovieDetails({
     };
     onAddWatchedMovie(movie);
   }
+
+  // lestining for escap key press
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.key === "Escape") {
+          onCloseMovieDetails();
+        }
+      }
+      document.addEventListener("keydown", callback);
+      return () => document.removeEventListener("keydown", callback);
+    },
+    [onCloseMovieDetails]
+  );
+
   useEffect(
     function () {
       async function getMovieById() {
@@ -210,7 +235,6 @@ function MovieDetails({
 
           setMovieDetails(data);
         } catch (err) {
-          console.log(err);
           setErrorMovie(err.message);
         } finally {
           setIsLoadingMovie(false);
