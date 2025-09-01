@@ -1,4 +1,6 @@
-import { Children, useState } from "react";
+import { useEffect, useState } from "react";
+
+const key = "85c62a61";
 
 const tempMovieData = [
   {
@@ -52,8 +54,45 @@ const average = (arr) =>
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState(tempMovieData);
+  const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState(tempWatchedData);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  useEffect(
+    function () {
+      async function getMovies() {
+        try {
+          setIsLoading(true);
+          setError(null);
+          const res = await fetch(
+            `https://www.omdbapi.com/?apikey=${key}&s=${query}`
+          );
+
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
+
+          const data = await res.json();
+
+          if (data.Response === "False") {
+            throw new Error("No movies found");
+          }
+
+          setMovies(data.Search);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+      if (query.length <= 3) {
+        setMovies([]);
+        setError(null);
+        return;
+      }
+      getMovies();
+    },
+    [query]
+  );
 
   function handleSetQuery(q) {
     setQuery(q);
@@ -68,7 +107,13 @@ export default function App() {
 
       <Main>
         <Box>
-          <MoviesList movies={movies} />
+          {error ? (
+            <ErrorMessage message={error} />
+          ) : isLoading ? (
+            <Loader />
+          ) : (
+            <MoviesList movies={movies} />
+          )}
         </Box>
         <Box>
           <WatchedMoviesSummary watched={watched} />
@@ -80,6 +125,19 @@ export default function App() {
 }
 
 // reuable components
+
+function Loader() {
+  return <p className="loader">Loading...</p>;
+}
+
+function ErrorMessage({ message }) {
+  return (
+    <p className="error">
+      <span>⛔</span>
+      {message}
+    </p>
+  );
+}
 function ToggleButton({ onToggle, isOpen }) {
   return (
     <button className="btn-toggle" onClick={onToggle}>
