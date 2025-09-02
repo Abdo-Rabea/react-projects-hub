@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import StarRating from "./StarRating";
 
 const key = "85c62a61";
@@ -53,10 +53,21 @@ const key = "85c62a61";
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+// * helper functions (will be called in handler or useEffect function)
+
+function saveMoviesIntoLocalStorage(watchedMovies) {
+  localStorage.setItem("watchedMovies", JSON.stringify(watchedMovies));
+}
+function getMoviesFromLocalStorage() {
+  const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies"));
+  if (watchedMovies) return watchedMovies;
+  return [];
+}
+
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(getMoviesFromLocalStorage);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -76,12 +87,22 @@ export default function App() {
 
   function handleAddWatchedMovie(movie) {
     setWatched((movies) => [...movies, movie]);
+
     handleResetSelectedId();
   }
 
   function handleDeleteWatchedMovie(id) {
     setWatched((movies) => movies.filter((movie) => movie.imdbID !== id));
   }
+
+  // use effect to sync. localStorage with watchedMovies
+  // * can be done in events handlers but prefer to do this in useEffect to be done in one central place
+  useEffect(
+    function () {
+      saveMoviesIntoLocalStorage(watched);
+    },
+    [watched]
+  );
 
   useEffect(
     function () {

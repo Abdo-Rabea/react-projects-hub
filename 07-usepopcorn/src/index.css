@@ -8,6 +8,8 @@
 7. useEffect to fetch data when ever the component mount
 8. useEffect to sync. side effect (outer api -dom title, omdbapi-) with the app states
 9. useEffect to react to the sates and props changes
+10- dealing with local storage to store watched movies data
+11- initialize state using callback function (reading data from local storage )
 */
 :root {
   --color-primary: #6741d9;
