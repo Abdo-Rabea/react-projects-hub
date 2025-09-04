@@ -10,6 +10,11 @@
 9. useEffect to react to the sates and props changes
 10- dealing with local storage to store watched movies data
 11- initialize state using callback function (reading data from local storage )
+12- use useRef -> to manupliate dom using react way
+13- use useRef -> to store data between re-renders without causing a re-render like state (perfect) (don't forget it is mutable)
+14- custome hooks 
+15- useCallback to memomize function so that useEffect dont' be called again if the component re-render
+
 */
 :root {
   --color-primary: #6741d9;

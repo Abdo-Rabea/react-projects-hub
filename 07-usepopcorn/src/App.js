@@ -1,5 +1,8 @@
-import { use, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
+import { useMovies } from "./useMovies";
+import { useLocalStorage, useLocalStorageState } from "./useLocalStorageState";
+import { useKey } from "./useKey";
 
 const key = "85c62a61";
 
@@ -55,34 +58,30 @@ const average = (arr) =>
 
 // * helper functions (will be called in handler or useEffect function)
 
-function saveMoviesIntoLocalStorage(watchedMovies) {
-  localStorage.setItem("watchedMovies", JSON.stringify(watchedMovies));
-}
-function getMoviesFromLocalStorage() {
-  const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies"));
-  if (watchedMovies) return watchedMovies;
-  return [];
-}
-
 export default function App() {
   const [query, setQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState(getMoviesFromLocalStorage);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const [selectedId, setSelectedId] = useState(null);
 
+  // this function now will behave like states that don't change between re-renders
+  const handleResetSelectedId = useCallback(function () {
+    setSelectedId(null);
+  }, []);
+  // function handleResetSelectedId() {
+  //   setSelectedId(null);
+  // }
+
+  const { movies, error, isLoading } = useMovies(query, handleResetSelectedId);
+  const [watched, setWatched] = useLocalStorageState([], "watched");
+  // in this simple case just pass setQuery
+  // as this function is defined every re-render and will pass new one to the child every time the app re-render
+  // * it only matters if there is a use effect that depends on this
   function handleSetQuery(q) {
     setQuery(q);
   }
 
   function handleToggleSelectedMovie(imdbID) {
     setSelectedId((id) => (id === imdbID ? null : imdbID));
-  }
-
-  function handleResetSelectedId() {
-    setSelectedId(null);
   }
 
   function handleAddWatchedMovie(movie) {
@@ -95,66 +94,11 @@ export default function App() {
     setWatched((movies) => movies.filter((movie) => movie.imdbID !== id));
   }
 
-  // use effect to sync. localStorage with watchedMovies
-  // * can be done in events handlers but prefer to do this in useEffect to be done in one central place
-  useEffect(
-    function () {
-      saveMoviesIntoLocalStorage(watched);
-    },
-    [watched]
-  );
-
-  useEffect(
-    function () {
-      const controller = new AbortController();
-      const signal = controller.signal;
-      async function getMovies() {
-        try {
-          setIsLoading(true);
-          setError(null);
-          const res = await fetch(
-            `https://www.omdbapi.com/?apikey=${key}&s=${query}`,
-            { signal }
-          );
-
-          //! to deal with other kinds of error(ex. 402) other than what fetch throws an error on
-          if (!res.ok)
-            throw new Error("Something went wrong with fetching movies");
-
-          const data = await res.json();
-
-          if (data.Response === "False") {
-            throw new Error("No movies found");
-          }
-
-          setMovies(data.Search);
-        } catch (err) {
-          if (err.name !== "AbortError") setError(err.message);
-        } finally {
-          setIsLoading(false);
-        }
-      }
-      if (query.length <= 3) {
-        setMovies([]);
-        setError(null);
-        return;
-      }
-
-      handleResetSelectedId();
-      getMovies();
-      return () => {
-        setError(null);
-        controller.abort();
-      };
-    },
-    [query]
-  );
-
   return (
     <>
       <QueryNav>
         {/* wow no prop drilling */}
-        <QueryInput query={query} onSetQuery={handleSetQuery} />
+        <QueryInput query={query} onSetQuery={setQuery} />
         <NumResults moviesNum={movies.length} />
       </QueryNav>
 
@@ -212,6 +156,12 @@ function MovieDetails({
   const [movieDetails, setMovieDetails] = useState({});
   const [rating, setRating] = useState(null);
 
+  useKey("Escape", onCloseMovieDetails);
+  // i am a react hook, you can't update me in the top level
+  // * just update me in someevent handler or effect function
+  // ! you want to preserve data beteween re-render but you don't want to render it on the screen (it's change will not cause a re-render)
+  const countRatingChange = useRef(0);
+
   function handleAddToList() {
     const movie = {
       imdbID: movieDetails.imdbID,
@@ -220,23 +170,16 @@ function MovieDetails({
       userRating: rating,
       Poster: movieDetails.Poster,
       runtime: movieDetails.Runtime,
+      countRatingChange: countRatingChange.current,
     };
     onAddWatchedMovie(movie);
   }
 
-  // lestining for escap key press
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.key === "Escape") {
-          onCloseMovieDetails();
-        }
-      }
-      document.addEventListener("keydown", callback);
-      return () => document.removeEventListener("keydown", callback);
-    },
-    [onCloseMovieDetails]
-  );
+  function handleSetRating(newRating) {
+    if (newRating === rating) return;
+    countRatingChange.current++;
+    setRating(newRating);
+  }
 
   useEffect(
     function () {
@@ -267,7 +210,7 @@ function MovieDetails({
     [id]
   );
 
-  // todo: change the title of the page when a movie is selected (movieDetails changes)
+  // change the title of the page when a movie is selected (movieDetails changes)
   // it will run when the component mount but the data not arrived yet so nothing will happen
   // it will be called again when the data arrives and the title will be setted
   // * @imp: useEffect has a side effect inside as it syncs. the outer api (dom title) with the instance data
@@ -305,7 +248,11 @@ function MovieDetails({
             <div>You rated movie with {userRating} ⭐</div>
           ) : (
             <>
-              <StarRating maxRating={10} size={26} onSetRating={setRating} />
+              <StarRating
+                maxRating={10}
+                size={26}
+                onSetRating={handleSetRating}
+              />
               {rating && (
                 <button className="btn-add" onClick={handleAddToList}>
                   + Add to list
@@ -361,6 +308,24 @@ function Logo() {
   );
 }
 function QueryInput({ query, onSetQuery }) {
+  const inputRef = useRef(null);
+  useEffect(function () {
+    inputRef.current.focus();
+  }, []);
+
+  // should be memomized because every re-render will create another function that will trigger the useEffect inside useKey (lets have fun with that)
+  const handleFocusInput = useCallback(
+    function () {
+      if (document.activeElement !== inputRef.current) {
+        onSetQuery("");
+        inputRef.current.focus();
+      }
+    },
+    [onSetQuery] // onSetQuery is just state setter function that is preserverd between re-renders (so no calling again)
+  );
+
+  useKey("Enter", handleFocusInput);
+
   return (
     <input
       className="search"
@@ -368,6 +333,7 @@ function QueryInput({ query, onSetQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => onSetQuery(e.target.value)}
+      ref={inputRef}
     />
   );
 }
