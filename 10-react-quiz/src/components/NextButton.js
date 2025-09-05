@@ -1,4 +1,18 @@
-function NextButton({ displayButton, dispatch }) {
+function NextButton({ displayButton, dispatch, isLastQuestion }) {
+  if (isLastQuestion)
+    return (
+      <>
+        {displayButton && (
+          <button
+            className="btn btn-ui"
+            onClick={() => dispatch({ type: "finishQuiz" })}
+          >
+            Finish
+          </button>
+        )}
+      </>
+    );
+
   return (
     <>
       {displayButton && (

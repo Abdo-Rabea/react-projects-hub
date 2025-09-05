@@ -7,7 +7,10 @@ import StartScreen from "./StartScreen";
 import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
-
+import FinishScreen from "./FinishScreen";
+import Footer from "./Footer";
+import Timer from "./Timer";
+const SECONDS_PER_QUESTIONS = 30;
 const initialState = {
   questions: [],
   // loading, ready, error, active, finished
@@ -15,6 +18,8 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
+  highScore: 0,
+  timeRemaining: null,
 };
 
 function reducer(state, action) {
@@ -24,7 +29,11 @@ function reducer(state, action) {
     case "dataFailed":
       return { ...state, status: "error" };
     case "start":
-      return { ...state, status: "active" };
+      return {
+        ...state,
+        status: "active",
+        timeRemaining: state.questions.length * SECONDS_PER_QUESTIONS,
+      };
     case "newAnswer":
       const question = state.questions.at(state.index);
       const correctAnswer = action.payload === question.correctOption;
@@ -40,16 +49,33 @@ function reducer(state, action) {
         answer: canIncrease ? null : state.answer,
         index: canIncrease ? state.index + 1 : state.index,
       };
+    case "finishQuiz":
+      return {
+        ...state,
+        status: "finish",
+        highScore: Math.max(state.highScore, state.points),
+      };
+    case "restartQuiz":
+      return { ...state, status: "ready", index: 0, answer: null, points: 0 };
+    case "tick":
+      const isFinished = state.timeRemaining - 1 <= 0;
+      if (isFinished)
+        return {
+          ...state,
+          status: "finish",
+          highScore: Math.max(state.highScore, state.points),
+        };
+      return { ...state, timeRemaining: state.timeRemaining - 1 };
     default:
       throw new Error("Action Unkown");
   }
 }
 
 function App() {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [
+    { questions, status, index, answer, points, highScore, timeRemaining },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
   const totalPoints = questions.reduce(
@@ -95,8 +121,23 @@ function App() {
               answer={answer}
               dispatch={dispatch}
             />
-            <NextButton displayButton={answer !== null} dispatch={dispatch} />
+            <Footer>
+              <Timer dispatch={dispatch} timeRemaining={timeRemaining} />
+              <NextButton
+                displayButton={answer !== null}
+                dispatch={dispatch}
+                isLastQuestion={index === numQuestions - 1}
+              />
+            </Footer>
           </>
+        )}
+        {status === "finish" && (
+          <FinishScreen
+            points={points}
+            totalPoints={totalPoints}
+            highScore={highScore}
+            dispatch={dispatch}
+          />
         )}
       </Main>
     </div>
