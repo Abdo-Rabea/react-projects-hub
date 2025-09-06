@@ -8,6 +8,13 @@ The **React Quiz App** is a learning project built as part of the _Ultimate Reac
 This app allows users to take quizzes with questions fetched from a fake server. It showcases how to replace complex `useState` logic with `useReducer` for predictable state transitions, as well as how to set up and consume data from a local development server using **json-server**.
 
 ---
+## Demo
+
+[demo](https://react-quiz-rabea.netlify.app/)
+
+![screen](./screen.png)
+
+---
 ## Key Learnings
 
 1. **`useReducer` hook** for managing complex state:
