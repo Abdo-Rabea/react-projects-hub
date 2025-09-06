@@ -20,7 +20,7 @@ Each project is listed below with links to:
 | 5   | Eat & Split     | [Repo](./06-eat-n-split)     | [Demo](https://eat-n-split-rabea.netlify.app/)     |
 | 6   | usePopcorn      | [Repo](./07-usepopcorn)      | [Demo](https://usepopcorn-rabea.netlify.app/)      |
 | 7   | How React Works | [Repo](./08-how-react-works) | [Demo](https://how-react-works-rabea.netlify.app/) |
-|     |                 |                              |                                                    |
+| 8   | React Quiz      | [Repo](./10-react-quiz)      | [Demo](https://react-quiz-rabea.netlify.app/)      |
  
 ---
 ## Challenge Index
