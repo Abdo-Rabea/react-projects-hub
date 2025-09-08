@@ -25,6 +25,7 @@ export default defineConfig([
     rules: {
       "no-unused-vars": ["warn", { varsIgnorePattern: "^[A-Z_]" }],
       "react/prop-types": "off",
+      "no-unreachable": "warn",
     },
   },
 ]);
