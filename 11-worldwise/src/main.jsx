@@ -11,4 +11,6 @@ createRoot(document.getElementById("root")).render(
 /**
  * react routers to create spa
  * css modules
+ * params (react-router)
+ * searchQuery (react-router)
  */
