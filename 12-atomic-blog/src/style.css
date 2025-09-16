@@ -1,3 +1,15 @@
+/*
+1. analyze already written application
+2. how to use context api and its benefits
+3. the context api makes your components
+  1. clean
+  2. independent and stand alone because there is no prob. drilling the the consumer component doesn't depend on any thing to be passed to him from parent to come to live so you can really call it where ever you want in the entire app
+4. how to use context api
+  |  1. create context --> const PostContext = createContext();
+  |  2. define the values in the provider that will be available for the child components
+  |  3. consuming the context vlue -->   const { posts } = useContext(PostContext);
+*/
+
 * {
   padding: 0;
   margin: 0;
@@ -17,6 +29,11 @@ body {
 .fake-dark-mode {
   filter: invert(100%);
   transition: all 0.5s;
+  -webkit-filter: invert(100%);
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
 }
 
 .btn-fake-dark-mode {
