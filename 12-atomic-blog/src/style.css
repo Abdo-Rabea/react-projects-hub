@@ -8,6 +8,9 @@
   |  1. create context --> const PostContext = createContext();
   |  2. define the values in the provider that will be available for the child components
   |  3. consuming the context vlue -->   const { posts } = useContext(PostContext);
+
+
+ 
 */
 
 * {
