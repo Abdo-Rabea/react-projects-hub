@@ -1,5 +1,6 @@
 const flagemojiToPNG = (flag) => {
-  var countryCode = Array.from(flag, (codeUnit) => codeUnit.codePointAt())
+  const tempFlag = flag ? flag : 98443197;
+  var countryCode = Array.from(tempFlag, (codeUnit) => codeUnit.codePointAt())
     .map((char) => String.fromCharCode(char - 127397).toLowerCase())
     .join("");
   return `https://flagcdn.com/24x18/${countryCode}.png`;
