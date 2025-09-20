@@ -12,6 +12,6 @@ createRoot(document.getElementById("root")).render(
  * react routers to create spa
  * css modules
  * params (react-router)
- * searchQuery (react-router)
+ * searchQuery (react-router): changing them will cause the component to re-render
  * cities context api with all of its benefits
  */
