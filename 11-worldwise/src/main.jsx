@@ -13,4 +13,5 @@ createRoot(document.getElementById("root")).render(
  * css modules
  * params (react-router)
  * searchQuery (react-router)
+ * cities context api with all of its benefits
  */
