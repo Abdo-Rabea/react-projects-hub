@@ -9,26 +9,39 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
+import Button from "./Button";
 import { useCities } from "../contexts/CitiesContext";
 import { flagemojiToPNG } from "../helper/helperFunctions";
+import { useGeolocation } from "../hooks/useGeolocation";
 
 function Map() {
   // const [mapPosition, setMapPosition] = useState([40, 0]);
   const [searchParams, setSearchParams] = useSearchParams();
   const { cities } = useCities();
+  const { position, getPosition } = useGeolocation();
 
   // !wow: changing lat, lng in search queries will cause this component to re-render   wow
   const lat = searchParams.get("lat");
   const lng = searchParams.get("lng");
 
-  function handleSetPosition() {
-    setSearchParams({ lat: "30.2", lng: "29.3" });
-  }
+  // sync. lat, lng search params with geolocation
+  useEffect(
+    function () {
+      if (position) setSearchParams({ lat: position.lat, lng: position.lng });
+    },
+    [position]
+  );
+
   return (
     <div className={styles.mapContainer}>
+      {!position && (
+        <Button type="position" onClick={getPosition}>
+          get your location
+        </Button>
+      )}
       <MapContainer
         // this is just initialization
-        center={[40, 0]}
+        center={[0, 0]}
         zoom={6}
         scrollWheelZoom={true}
         className={styles.map}
