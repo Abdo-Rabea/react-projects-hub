@@ -35,6 +35,90 @@
         "lng": 13.376933665713324
       },
       "id": 98443197
+    },
+    {
+      "cityName": "Marsa Maţruḩ",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2025-09-24T15:48:28.082Z",
+      "notes": "",
+      "position": {
+        "lat": "30.315987718557867",
+        "lng": "26.850585937500004"
+      },
+      "id": 98443198
+    },
+    {
+      "cityName": "Marsa Maţruḩ",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2025-09-24T15:48:28.082Z",
+      "notes": "",
+      "position": {
+        "lat": "30.315987718557867",
+        "lng": "26.850585937500004"
+      },
+      "id": 98443199
+    },
+    {
+      "cityName": "Qasr al Farafirah",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2025-09-24T15:51:08.221Z",
+      "notes": "what the hack",
+      "position": {
+        "lat": "27.21555620902969",
+        "lng": "27.795410156250004"
+      },
+      "id": 98443200
+    },
+    {
+      "cityName": "Al Kharjah",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2025-09-24T15:51:20.034Z",
+      "notes": "lol\n",
+      "position": {
+        "lat": "25.958044673317843",
+        "lng": "31.552734375000004"
+      },
+      "id": 98443201
+    },
+    {
+      "cityName": "Ajdabiya",
+      "country": "Libya",
+      "emoji": "🇱🇾",
+      "date": "2025-09-24T15:56:04.392Z",
+      "notes": "",
+      "position": {
+        "lat": "27.176469131898898",
+        "lng": "22.148437500000004"
+      },
+      "id": 98443202
+    },
+    {
+      "cityName": "Pina de Ebro",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2025-09-24T15:56:20.939Z",
+      "notes": "asdf",
+      "position": {
+        "lat": "41.541477666790286",
+        "lng": "-0.39550781250000006"
+      },
+      "id": 98443203
+    },
+    {
+      "cityName": "Hun",
+      "country": "Libya",
+      "emoji": "🇱🇾",
+      "date": "2025-09-24T17:03:01.115Z",
+      "notes": "",
+      "position": {
+        "lat": "26.70635985763354",
+        "lng": "18.610839843750004"
+      },
+      "id": 98443204
     }
   ]
 }

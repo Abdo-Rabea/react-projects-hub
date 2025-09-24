@@ -13,17 +13,13 @@ import Button from "./Button";
 import { useCities } from "../contexts/CitiesContext";
 import { flagemojiToPNG } from "../helper/helperFunctions";
 import { useGeolocation } from "../hooks/useGeolocation";
+import { useCurrentPosition } from "../hooks/useCurrentPosition";
 
 function Map() {
   // const [mapPosition, setMapPosition] = useState([40, 0]);
-  const [searchParams, setSearchParams] = useSearchParams();
   const { cities } = useCities();
   const { position, getPosition } = useGeolocation();
-
-  // !wow: changing lat, lng in search queries will cause this component to re-render   wow
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
-
+  const { lat, lng, setSearchParams } = useCurrentPosition();
   // sync. lat, lng search params with geolocation
   useEffect(
     function () {
@@ -41,7 +37,7 @@ function Map() {
       )}
       <MapContainer
         // this is just initialization
-        center={[0, 0]}
+        center={[31.22, 29.97]}
         zoom={6}
         scrollWheelZoom={true}
         className={styles.map}

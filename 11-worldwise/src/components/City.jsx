@@ -18,11 +18,7 @@ function City() {
   // TEMP DATA
 
   const { id } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
   const { currentCity, getCity, isLoading } = useCities();
-
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
 
   const { cityName, emoji, date, notes } = currentCity;
 
