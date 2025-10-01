@@ -1,30 +1,6 @@
 {
   "cities": [
     {
-      "cityName": "Marsa Maţruḩ",
-      "country": "Egypt",
-      "emoji": "🇪🇬",
-      "date": "2025-09-24T18:26:30.653Z",
-      "notes": "",
-      "position": {
-        "lat": "29.825548743974977",
-        "lng": "26.408277688380235"
-      },
-      "id": 1
-    },
-    {
-      "cityName": "Alexandria",
-      "country": "Egypt",
-      "emoji": "🇪🇬",
-      "date": "2025-09-24T18:26:41.086Z",
-      "notes": "",
-      "position": {
-        "lat": "31.248219323931856",
-        "lng": "30.06245919898682"
-      },
-      "id": 2
-    },
-    {
       "cityName": "Bethlehem",
       "country": "Palestine, State of",
       "emoji": "🇵🇸",
@@ -35,6 +11,18 @@
         "lng": "35.18943858233881"
       },
       "id": 3
+    },
+    {
+      "cityName": "Siwah",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2025-10-01T09:25:03.838Z",
+      "notes": "",
+      "position": {
+        "lat": "28.637227953573145",
+        "lng": "25.903021657178968"
+      },
+      "id": 5
     }
   ]
 }
