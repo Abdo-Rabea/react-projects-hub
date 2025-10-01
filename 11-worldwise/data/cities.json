@@ -1,124 +1,40 @@
 {
   "cities": [
     {
-      "cityName": "Lisbon",
-      "country": "Portugal",
-      "emoji": "🇵🇹",
-      "date": "2027-10-31T15:59:59.138Z",
-      "notes": "My favorite city so far!",
-      "position": {
-        "lat": 38.727881642324164,
-        "lng": -9.140900099907554
-      },
-      "id": 73930385
-    },
-    {
-      "cityName": "Madrid",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
-      "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
-      },
-      "id": 17806751
-    },
-    {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": 98443197
-    },
-    {
       "cityName": "Marsa Maţruḩ",
       "country": "Egypt",
       "emoji": "🇪🇬",
-      "date": "2025-09-24T15:48:28.082Z",
+      "date": "2025-09-24T18:26:30.653Z",
       "notes": "",
       "position": {
-        "lat": "30.315987718557867",
-        "lng": "26.850585937500004"
+        "lat": "29.825548743974977",
+        "lng": "26.408277688380235"
       },
-      "id": 98443198
+      "id": 1
     },
     {
-      "cityName": "Marsa Maţruḩ",
+      "cityName": "Alexandria",
       "country": "Egypt",
       "emoji": "🇪🇬",
-      "date": "2025-09-24T15:48:28.082Z",
+      "date": "2025-09-24T18:26:41.086Z",
       "notes": "",
       "position": {
-        "lat": "30.315987718557867",
-        "lng": "26.850585937500004"
+        "lat": "31.248219323931856",
+        "lng": "30.06245919898682"
       },
-      "id": 98443199
+      "id": 2
     },
     {
-      "cityName": "Qasr al Farafirah",
-      "country": "Egypt",
-      "emoji": "🇪🇬",
-      "date": "2025-09-24T15:51:08.221Z",
-      "notes": "what the hack",
-      "position": {
-        "lat": "27.21555620902969",
-        "lng": "27.795410156250004"
-      },
-      "id": 98443200
-    },
-    {
-      "cityName": "Al Kharjah",
-      "country": "Egypt",
-      "emoji": "🇪🇬",
-      "date": "2025-09-24T15:51:20.034Z",
-      "notes": "lol\n",
-      "position": {
-        "lat": "25.958044673317843",
-        "lng": "31.552734375000004"
-      },
-      "id": 98443201
-    },
-    {
-      "cityName": "Ajdabiya",
-      "country": "Libya",
-      "emoji": "🇱🇾",
-      "date": "2025-09-24T15:56:04.392Z",
+      "cityName": "Bethlehem",
+      "country": "Palestine, State of",
+      "emoji": "🇵🇸",
+      "date": "2025-09-24T18:27:08.714Z",
       "notes": "",
       "position": {
-        "lat": "27.176469131898898",
-        "lng": "22.148437500000004"
+        "lat": "31.69475828123393",
+        "lng": "35.18943858233881"
       },
-      "id": 98443202
-    },
-    {
-      "cityName": "Pina de Ebro",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2025-09-24T15:56:20.939Z",
-      "notes": "asdf",
-      "position": {
-        "lat": "41.541477666790286",
-        "lng": "-0.39550781250000006"
-      },
-      "id": 98443203
-    },
-    {
-      "cityName": "Hun",
-      "country": "Libya",
-      "emoji": "🇱🇾",
-      "date": "2025-09-24T17:03:01.115Z",
-      "notes": "",
-      "position": {
-        "lat": "26.70635985763354",
-        "lng": "18.610839843750004"
-      },
-      "id": 98443204
+      "id": 3
     }
   ]
 }

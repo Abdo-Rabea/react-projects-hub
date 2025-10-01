@@ -5,7 +5,11 @@ import { useCities } from "../contexts/CitiesContext";
 
 function CityItem({ city }) {
   const { cityName, emoji, date, id, position } = city;
-  const { currentCity } = useCities();
+  const { currentCity, deleteCity } = useCities();
+  function handleDelete(e) {
+    e.preventDefault(); // this will prevent the default behaviour of Link
+    deleteCity(id);
+  }
   return (
     <li>
       <Link
@@ -19,7 +23,9 @@ function CityItem({ city }) {
         </span>
         <span className={styles.name}>{cityName}</span>
         <time className={styles.date}>({formatDate(date)})</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button className={styles.deleteBtn} onClick={handleDelete}>
+          &times;
+        </button>
       </Link>
     </li>
   );
