@@ -10,7 +10,7 @@ import Progress from "./Progress";
 import FinishScreen from "./FinishScreen";
 import Footer from "./Footer";
 import Timer from "./Timer";
-import { useQuiz } from "../contexts/QuizContext";
+const SECONDS_PER_QUESTIONS = 30;
 const tempData = [
   {
     question: "Which is the most popular JavaScript framework?",
@@ -152,35 +152,96 @@ const tempData = [
   },
 ];
 
-function App() {
-  const { questions, status, dispatch } = useQuiz();
+const initialState = {
+  questions: [],
+  // loading, ready, error, active, finished
+  status: "loading",
+  index: 0,
+  answer: null,
+  points: 0,
+  highScore: 0,
+  timeRemaining: null,
+};
 
+function reducer(state, action) {
+  switch (action.type) {
+    case "dataReceived":
+      return { ...state, questions: action.payload, status: "ready" };
+    case "dataFailed":
+      return { ...state, status: "error" };
+    case "start":
+      return {
+        ...state,
+        status: "active",
+        timeRemaining: state.questions.length * SECONDS_PER_QUESTIONS,
+      };
+    case "newAnswer":
+      const question = state.questions.at(state.index);
+      const correctAnswer = action.payload === question.correctOption;
+      return {
+        ...state,
+        answer: action.payload,
+        points: state.points + (correctAnswer ? question.points : 0),
+      };
+    case "nextQuestion":
+      const canIncrease = state.index < state.questions.length - 1;
+      return {
+        ...state,
+        answer: canIncrease ? null : state.answer,
+        index: canIncrease ? state.index + 1 : state.index,
+      };
+    case "finishQuiz":
+      return {
+        ...state,
+        status: "finish",
+        highScore: Math.max(state.highScore, state.points),
+      };
+    case "restartQuiz":
+      return { ...state, status: "ready", index: 0, answer: null, points: 0 };
+    case "tick":
+      const isFinished = state.timeRemaining - 1 <= 0;
+      if (isFinished)
+        return {
+          ...state,
+          status: "finish",
+          highScore: Math.max(state.highScore, state.points),
+        };
+      return { ...state, timeRemaining: state.timeRemaining - 1 };
+    default:
+      throw new Error("Action Unkown");
+  }
+}
+
+function App() {
+  const [
+    { questions, status, index, answer, points, highScore, timeRemaining },
+    dispatch,
+  ] = useReducer(reducer, initialState);
+
+  const numQuestions = questions.length;
   const totalPoints = questions.reduce(
     (acc, question) => acc + question.points,
     0
   );
 
-  useEffect(
-    function () {
-      // async function getQuestions() {
-      //   try {
-      //     // const res = await fetch("http://localhost:8000/questions");
-      //     // const data = await res.json();
+  useEffect(function () {
+    // async function getQuestions() {
+    //   try {
+    //     // const res = await fetch("http://localhost:8000/questions");
+    //     // const data = await res.json();
 
-      //     dispatch({ type: "dataReceived", payload: data });
-      //   } catch (err) {
-      //     dispatch({ type: "dataFailed" });
-      //   }
-      // }
+    //     dispatch({ type: "dataReceived", payload: data });
+    //   } catch (err) {
+    //     dispatch({ type: "dataFailed" });
+    //   }
+    // }
 
-      // getQuestions();
+    // getQuestions();
 
-      setTimeout(function () {
-        dispatch({ type: "dataReceived", payload: tempData });
-      }, 500);
-    },
-    [dispatch]
-  );
+    setTimeout(function () {
+      dispatch({ type: "dataReceived", payload: tempData });
+    }, 500);
+  }, []);
 
   return (
     <div className="app">
@@ -189,18 +250,41 @@ function App() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <StartScreen />}
+        {status === "ready" && (
+          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
+        )}
         {status === "active" && (
           <>
-            <Progress totalPoints={totalPoints} />
-            <Question />
+            <Progress
+              index={index}
+              numQuestions={numQuestions}
+              points={points}
+              totalPoints={totalPoints}
+              answer={answer}
+            />
+            <Question
+              question={questions[index]}
+              answer={answer}
+              dispatch={dispatch}
+            />
             <Footer>
-              <Timer />
-              <NextButton />
+              <Timer dispatch={dispatch} timeRemaining={timeRemaining} />
+              <NextButton
+                displayButton={answer !== null}
+                dispatch={dispatch}
+                isLastQuestion={index === numQuestions - 1}
+              />
             </Footer>
           </>
         )}
-        {status === "finish" && <FinishScreen totalPoints={totalPoints} />}
+        {status === "finish" && (
+          <FinishScreen
+            points={points}
+            totalPoints={totalPoints}
+            highScore={highScore}
+            dispatch={dispatch}
+          />
+        )}
       </Main>
     </div>
   );

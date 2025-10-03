@@ -1,10 +1,5 @@
-import { useQuiz } from "../contexts/QuizContext";
-
-function Progress({ totalPoints }) {
-  const { index, answer, points, questions } = useQuiz();
-
+function Progress({ index, numQuestions, points, totalPoints, answer }) {
   const hasAnswered = answer !== null;
-  const numQuestions = questions.length;
 
   return (
     <div className="progress">

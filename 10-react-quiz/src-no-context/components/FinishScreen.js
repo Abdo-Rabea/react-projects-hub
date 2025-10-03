@@ -1,8 +1,4 @@
-import { useQuiz } from "../contexts/QuizContext";
-
-function FinishScreen({ totalPoints }) {
-  const { points, highScore, dispatch } = useQuiz();
-
+function FinishScreen({ points, totalPoints, highScore, dispatch }) {
   const precent = Math.ceil((points / totalPoints) * 100);
   let emoji;
   if (precent >= 100) emoji = "🥇";
