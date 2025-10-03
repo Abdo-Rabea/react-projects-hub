@@ -23,6 +23,66 @@
         "lng": "25.903021657178968"
       },
       "id": 5
+    },
+    {
+      "cityName": "Iul’tinskiy Rayon",
+      "country": "Russian Federation (the)",
+      "emoji": "🇷🇺",
+      "date": "2025-10-02T14:35:25.308Z",
+      "notes": "",
+      "position": {
+        "lat": "67.2727155671292",
+        "lng": "-176.06750843702935"
+      },
+      "id": 6
+    },
+    {
+      "cityName": "Bering Strait",
+      "country": "Russian Federation (the)",
+      "emoji": "🇷🇺",
+      "date": "2025-10-02T14:40:18.386Z",
+      "notes": "",
+      "position": {
+        "lat": "65.77645926198585",
+        "lng": "-169.01303179499388"
+      },
+      "id": 8
+    },
+    {
+      "cityName": "Bering Strait",
+      "country": "United States of America (the)",
+      "emoji": "🇺🇸",
+      "date": "2025-10-02T14:40:21.672Z",
+      "notes": "",
+      "position": {
+        "lat": "65.75791020883426",
+        "lng": "-168.9767247765496"
+      },
+      "id": 9
+    },
+    {
+      "cityName": "Bering Strait",
+      "country": "Russian Federation (the)",
+      "emoji": "🇷🇺",
+      "date": "2025-10-02T14:40:33.330Z",
+      "notes": "",
+      "position": {
+        "lat": "65.75798927116429",
+        "lng": "-168.97756217782012"
+      },
+      "id": 10
+    },
+    {
+      "cityName": "Al Mansurah",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "2025-10-02T16:25:20.894Z",
+      "notes": "gehad humara",
+      "position": {
+        "lat": "31.003173556600157",
+        "lng": "31.307944576397684"
+      },
+      "id": 11
     }
   ]
 }

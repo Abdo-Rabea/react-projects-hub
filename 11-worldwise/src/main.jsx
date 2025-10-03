@@ -15,4 +15,6 @@ createRoot(document.getElementById("root")).render(
  * searchQuery (react-router): changing them will cause the component to re-render
  * cities context api with all of its benefits
  * form add cities all functionalities (get data into for when clicking on the map, fetch the countries data from an api (name), filling the form using states, add the form using submit)
+ * authentication mechanism (context + reducer (user, isAutheneticated) states + login - logout)
+ * protected route to only access the app if user is authenticated
  */
