@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { faker } from "@faker-js/faker";
 
 function createRandomPost() {
@@ -25,9 +25,11 @@ function App() {
         )
       : posts;
 
-  function handleAddPost(post) {
+  // note here you don't need this function to re-created again as it will always stay the same
+  // if you use posts in this function then you will need to add it to dep. array because the cashed function closed over the old value of the posts
+  const handleAddPost = useCallback(function (post) {
     setPosts((posts) => [post, ...posts]);
-  }
+  }, []);
 
   function handleClearPosts() {
     setPosts([]);
@@ -41,6 +43,18 @@ function App() {
     [isFakeDark]
   );
 
+  // const archiveOptions = { show: false, title: "Custome Post archive" };
+
+  // useMemo will only recompute the memoized value when one of the deps has changed.
+  // so the archiveOptions reference will be the same as useMemo is maintained between re-render (thing re-lated to fiber tree)
+  // for this example: the callback function is only called on the initial render,
+  //                   nothing in the dependency array so no re-calculation (the value is **Stable** between renders)
+  const archiveOptions = useMemo(() => {
+    return {
+      show: false,
+      title: `Post archive in addition to ${posts.length} main posts`,
+    };
+  }, [posts.length]);
   return (
     <section>
       <button
@@ -57,7 +71,7 @@ function App() {
         setSearchQuery={setSearchQuery}
       />
       <Main posts={searchedPosts} onAddPost={handleAddPost} />
-      <Archive onAddPost={handleAddPost} />
+      <Archive archiveOptions={archiveOptions} onAddPost={handleAddPost} />
       <Footer />
     </section>
   );
@@ -154,18 +168,19 @@ function List({ posts }) {
   );
 }
 
-function Archive({ onAddPost }) {
+// now this will only re-render only if the parent component re-render and show prop changed
+const Archive = memo(function ({ archiveOptions, onAddPost }) {
   // Here we don't need the setter function. We're only using state to store these posts because the callback function passed into useState (which generates the posts) is only called once, on the initial render. So we use this trick as an optimization technique, because if we just used a regular variable, these posts would be re-created on every render. We could also move the posts outside the components, but I wanted to show you this trick 😉
   const [posts] = useState(() =>
     // 💥 WARNING: This might make your computer slow! Try a smaller `length` first
     Array.from({ length: 10000 }, () => createRandomPost())
   );
 
-  const [showArchive, setShowArchive] = useState(false);
+  const [showArchive, setShowArchive] = useState(archiveOptions.show);
 
   return (
     <aside>
-      <h2>Post archive</h2>
+      <h2>{archiveOptions.title}</h2>
       <button onClick={() => setShowArchive((s) => !s)}>
         {showArchive ? "Hide archive posts" : "Show archive posts"}
       </button>
@@ -184,7 +199,7 @@ function Archive({ onAddPost }) {
       )}
     </aside>
   );
-}
+});
 
 function Footer() {
   return <footer>&copy; by The Atomic Blog ✌️</footer>;

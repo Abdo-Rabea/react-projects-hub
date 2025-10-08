@@ -16,6 +16,7 @@
   |     so for the memomized component when its parent re-render:
   |       1. has the same prop values -> no re-render
   |       2. has different prop values -> will re-render ofcourse ( because this will cause different view )
+  |  3. memoizing values useing useMemo && memoizing functions using useCallback
 
 note the unmemoized component will always re-render when its parent doesn't re-render
 */
