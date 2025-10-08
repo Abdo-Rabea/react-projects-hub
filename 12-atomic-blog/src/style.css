@@ -9,8 +9,15 @@
   |  2. define the values in the provider that will be available for the child components
   |  3. consuming the context vlue -->   const { posts } = useContext(PostContext);
 
+5. How to avoid wasted renders ( wasted renders: the renders that not affect the ui )
+  |  1. component composition ( passing the child component as children so react creates it passes it to the component
+  |  2. memomizing the components 
+  |     @imp: memomizing component only affects props
+  |     so for the memomized component when its parent re-render:
+  |       1. has the same prop values -> no re-render
+  |       2. has different prop values -> will re-render ofcourse ( because this will cause different view )
 
- 
+note the unmemoized component will always re-render when its parent doesn't re-render
 */
 
 * {
