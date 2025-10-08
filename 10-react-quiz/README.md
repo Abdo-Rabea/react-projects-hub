@@ -26,7 +26,8 @@ This app allows users to take quizzes with questions fetched from a fake server.
     - Simulating a backend by serving quiz questions from a local JSON file.
     - Practicing API requests and data fetching in React.
     - Building apps with a real-world client–server workflow without needing an actual backend.
-
+3. Context ap:
+	- using context API to cast some states globally and avoid prop. drilling problem
 ---
 ## Tech Stack
 - **React** (`useReducer`, `useEffect`)
