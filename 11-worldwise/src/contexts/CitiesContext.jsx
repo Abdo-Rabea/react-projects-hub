@@ -1,9 +1,9 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useReducer,
-  useState,
 } from "react";
 
 const BASE_URL = "http://localhost:8000";
@@ -83,18 +83,20 @@ function CitiesProvider({ children }) {
   // it is better to put it here even though the city component is the only one that needs it
   //  1. for grouping all city & cities functionalities here
   //  2. for future puprose
-  async function getCity(id) {
-    if (id == currentCity.id) return;
-    try {
-      dispatch({ type: "loading/start" });
-      const res = await fetch(`${BASE_URL}/cities/${id}`);
-      const data = await res.json();
-      dispatch({ type: "city/loaded", payload: data });
-    } catch (err) {
-      dispatch({ type: "error", payload: "can't get city data" });
-    }
-  }
-
+  const getCity = useCallback(
+    async function getCity(id) {
+      if (id == currentCity.id) return;
+      try {
+        dispatch({ type: "loading/start" });
+        const res = await fetch(`${BASE_URL}/cities/${id}`);
+        const data = await res.json();
+        dispatch({ type: "city/loaded", payload: data });
+      } catch (err) {
+        dispatch({ type: "error", payload: "can't get city data" });
+      }
+    },
+    [currentCity.id]
+  );
   async function createCity(newCity) {
     try {
       dispatch({ type: "loading/start" });
