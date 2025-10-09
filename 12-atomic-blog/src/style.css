@@ -19,6 +19,8 @@
   |  3. memoizing values useing useMemo && memoizing functions using useCallback
 
 note the unmemoized component will always re-render when its parent doesn't re-render
+
+context + memoizing the value object so when the parent of the provider re-render this value will not re-created leading to the re-render of the consumers because of the context has changed
 */
 
 * {
