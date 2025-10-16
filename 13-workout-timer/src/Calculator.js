@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import clickSound from "./ClickSound.m4a";
 
 const Calculator = memo(function ({ workouts, allowSound }) {
@@ -13,12 +13,37 @@ const Calculator = memo(function ({ workouts, allowSound }) {
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
 
+  const playSound = useCallback(
+    function () {
+      if (!allowSound) return;
+      const sound = new Audio(clickSound);
+      sound.play();
+    },
+    [allowSound]
+  );
+
   // * duration depends on many states so i will create useEffect to update duration whenever any of these states updates ( this will create another re-render but it is better than spreading the updating of duration all over the code)
   useEffect(
     function () {
       setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak);
     },
+
     [durationBreak, number, sets, speed]
+  );
+
+  // sync. playSound side effect with the duration state
+  useEffect(
+    function () {
+      playSound();
+    },
+    [playSound, duration]
+  );
+
+  useEffect(
+    function () {
+      document.title = `Your ${number}-exercise workout`;
+    },
+    [number]
   );
 
   function handleIncDuration() {
@@ -28,12 +53,6 @@ const Calculator = memo(function ({ workouts, allowSound }) {
   function handleDecDuration() {
     setDuration((duration) => (duration > 1 ? Math.ceil(duration) - 1 : 0));
   }
-
-  const playSound = function () {
-    if (!allowSound) return;
-    const sound = new Audio(clickSound);
-    sound.play();
-  };
 
   return (
     <>
