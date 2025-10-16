@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import clickSound from "./ClickSound.m4a";
 
 const Calculator = memo(function ({ workouts, allowSound }) {
@@ -6,10 +6,28 @@ const Calculator = memo(function ({ workouts, allowSound }) {
   const [sets, setSets] = useState(3);
   const [speed, setSpeed] = useState(90);
   const [durationBreak, setDurationBreak] = useState(5);
+  const [duration, setDuration] = useState(0);
 
-  const duration = (number * sets * speed) / 60 + (sets - 1) * durationBreak;
+  // todo: convert to state so that i can update it uisng ui and affecting the ui (not just displaying it)
+  // const duration = (number * sets * speed) / 60 + (sets - 1) * durationBreak;
   const mins = Math.floor(duration);
   const seconds = (duration - mins) * 60;
+
+  // * duration depends on many states so i will create useEffect to update duration whenever any of these states updates ( this will create another re-render but it is better than spreading the updating of duration all over the code)
+  useEffect(
+    function () {
+      setDuration((number * sets * speed) / 60 + (sets - 1) * durationBreak);
+    },
+    [durationBreak, number, sets, speed]
+  );
+
+  function handleIncDuration() {
+    setDuration((duration) => Math.floor(duration) + 1);
+  }
+
+  function handleDecDuration() {
+    setDuration((duration) => (duration > 1 ? Math.ceil(duration) - 1 : 0));
+  }
 
   const playSound = function () {
     if (!allowSound) return;
@@ -66,13 +84,13 @@ const Calculator = memo(function ({ workouts, allowSound }) {
         </div>
       </form>
       <section>
-        <button onClick={() => {}}>–</button>
+        <button onClick={handleDecDuration}>–</button>
         <p>
           {mins < 10 && "0"}
           {mins}:{seconds < 10 && "0"}
           {seconds}
         </p>
-        <button onClick={() => {}}>+</button>
+        <button onClick={handleIncDuration}>+</button>
       </section>
     </>
   );
