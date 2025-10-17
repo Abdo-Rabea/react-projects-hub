@@ -17,12 +17,12 @@ import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import SpinnerFullPage from "./components/SpinnerFullPage";
 
-const Homepage = lazy(() => import("./pages/Homepage"));
-const Product = lazy(() => import("./pages/Product"));
-const Pricing = lazy(() => import("./pages/Pricing"));
-const PageNotFound = lazy(() => import("./pages/PageNotFound"));
-const AppLayout = lazy(() => import("./pages/AppLayout"));
-const Login = lazy(() => import("./pages/Login"));
+const Homepage = lazy(() => import("./pages/Homepage.jsx"));
+const Product = lazy(() => import("./pages/Product.jsx"));
+const Pricing = lazy(() => import("./pages/Pricing.jsx"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound.jsx"));
+const AppLayout = lazy(() => import("./pages/AppLayout.jsx"));
+const Login = lazy(() => import("./pages/Login.jsx"));
 
 function Layout() {
   let location = useLocation();
