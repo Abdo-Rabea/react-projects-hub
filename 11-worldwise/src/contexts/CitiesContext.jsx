@@ -6,7 +6,11 @@ import {
   useReducer,
 } from "react";
 
-const BASE_URL = "http://localhost:8000";
+// const BASE_URL = "http://localhost:8000";
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:8000"
+    : "https://react-projects-hub-production.up.railway.app";
 
 const CitiesContext = createContext();
 
