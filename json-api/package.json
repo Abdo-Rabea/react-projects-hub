@@ -2,7 +2,7 @@
   "name": "json-server-api",
   "version": "1.0.0",
   "scripts": {
-    "server": "json-server cities.json --port 8000 --delay 500 "
+    "start": "node server.js"
   },
   "dependencies": {
     "json-server": "^0.17.4"
