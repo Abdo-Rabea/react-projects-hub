@@ -70,6 +70,7 @@ Developed a secure and scalable authentication flow using:
 - Designed **authentication and route protection** using reducer-based state management.
 - Improved performance through **memoization** and **code splitting**.
 
+-  - - -
 ## Demo
 
 [Live Demo](https://worldwise-rabea.netlify.app/)
@@ -79,7 +80,7 @@ Developed a secure and scalable authentication flow using:
 ---
 ## Learning Outcomes
 
-By completing this project, you will learn how to:
+By completing this project, I have learned how to:
 - Build **Single Page Applications** using React Router.
 - Use **Context API** and **reducers** for scalable state management.
 - Implement **authentication systems** with route protection.
