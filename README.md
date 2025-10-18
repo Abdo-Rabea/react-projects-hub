@@ -23,6 +23,7 @@ Each project is listed below with links to:
 | 8   | React Quiz      | [Repo](./10-react-quiz)      | [Demo](https://react-quiz-rabea.netlify.app/)      |
 | 9   | World Wise      | [Repo](./11-worldwise)       | [Demo](https://worldwise-rabea.netlify.app/)       |
 | 10  | Atomic Blog     | [Repo](./12-atomic-blog)     | [Demo](https://atomic-blog-rabea.netlify.app/)     |
+| 11  | Workout Timer   | [Repo](./13-workout-timer)   | [Demo](https://workout-timer-rabea.netlify.app/)   |
  
 ---
 ## Challenge Index
