@@ -52,6 +52,17 @@ Developed a secure and scalable authentication flow using:
 - Applied **React.lazy()** and **Suspense** for **bundle optimization**, loading only the required parts of the app when needed.
 - Improved initial load performance and user experience by showing fallback UIs during component loading.
 
+- - - -
+### 7. Backend (Server)
+
+- **Fake Backend with JSON Server** –  
+    Used `json-server` as a lightweight backend for managing city data.
+- **Deployment on Railway** –  
+    Successfully deployed the backend to **Railway**, making the app fully functional online with:
+    - Persistent data storage
+    - RESTful API endpoints accessible by the frontend
+    - Automatic handling of GET/POST/DELETE requests from the React app
+- Learned how to **structure and deploy a mock REST API** for testing and learning purposes.
 ---
 ## Tech Stack
 
