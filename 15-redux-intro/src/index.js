@@ -4,23 +4,14 @@ import "./index.css";
 import App from "./App";
 
 import store from "./store";
-import { deposit } from "./features/accounts/accountSlice";
-import { createCustomer } from "./features/customers/customerSlice";
-
-store.dispatch(deposit(500));
-// store.dispatch(withdraw(800));
-// store.dispatch(requestLoan(300, "by a car"));
-// store.dispatch(payLoan());
-
-store.dispatch(createCustomer("abdo", "2131231"));
-// store.dispatch(updateName("Ahmed"));
-
-console.log(store.getState());
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
@@ -31,4 +22,7 @@ root.render(
  * 3. combine differnt reducor into root reducer
  * 4. testing them using simple dispatch
  * 5. use react-redux to connect redux with react so that i can provide the store to the component (something really similar to the context-api with reducer)
+ *  then you can consoume any piece of data inside the store using useSelector
+ * 6. react-redux: to organize and optimize the consuming of data but dispatching actions comes with redux (wrong)
+ * 7. you have access to the dispatch function using useDispatch hook from react-redux
  */
