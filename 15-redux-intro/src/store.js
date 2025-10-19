@@ -1,10 +1,16 @@
 import { type } from "@testing-library/user-event/dist/type";
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 
-const initialState = {
+const initialStateAccount = {
   balance: 0,
   loan: 0,
   loanPurpose: "",
+};
+
+const initialStateCustomer = {
+  fullName: "",
+  nationalID: "",
+  createdAt: "",
 };
 
 /**
@@ -15,7 +21,7 @@ const initialState = {
  *
  */
 
-function reducer(state = initialState, action) {
+function AccountReducer(state = initialStateAccount, action) {
   switch (action.type) {
     case "account/deposit":
       return { ...state, balance: state.balance + action.payload };
@@ -47,13 +53,68 @@ function reducer(state = initialState, action) {
   }
 }
 
-const store = createStore(reducer);
+function CustomerReducer(state = initialStateCustomer, action) {
+  switch (action.type) {
+    case "customer/createCustomer":
+      return {
+        ...state,
+        fullName: action.payload.fullName,
+        nationalID: action.payload.nationalID,
+        createdAt: action.payload.createdAt,
+      };
 
-store.dispatch({ type: "account/deposit", payload: 500 });
-store.dispatch({ type: "account/withdraw", payload: 800 });
-store.dispatch({
-  type: "account/requestLoan",
-  payload: { amount: 300, purpose: "by a car" },
+    case "customer/updateName":
+      return { ...state, fullName: action.payload };
+
+    default:
+      return state;
+  }
+}
+
+const root = combineReducers({
+  account: AccountReducer,
+  customer: CustomerReducer,
 });
-store.dispatch({ type: "account/payLoan" });
+
+const store = createStore(root);
+
+// Action creators account
+function deposit(amount) {
+  return { type: "account/deposit", payload: amount };
+}
+function withdraw(amount) {
+  return { type: "account/withdraw", payload: amount };
+}
+function requestLoan(amount, purpose) {
+  return {
+    type: "account/requestLoan",
+    payload: { amount, purpose },
+  };
+}
+function payLoan() {
+  return { type: "account/payLoan" };
+}
+
+// Action creators customer
+
+//* think of how dispatch this action -> don't bother yourself with this thing function creator
+function createCustomer(fullName, nationalID) {
+  return {
+    type: "customer/createCustomer",
+    payload: { fullName, nationalID, createdAt: new Date().toString() },
+  };
+}
+
+function updateName(fullName) {
+  return { type: "customer/updateName", payload: fullName };
+}
+
+store.dispatch(deposit(500));
+store.dispatch(withdraw(800));
+store.dispatch(requestLoan(300, "by a car"));
+store.dispatch(payLoan());
+
+store.dispatch(createCustomer("abdo", "2131231"));
+store.dispatch(updateName("Ahmed"));
+
 console.log(store.getState());

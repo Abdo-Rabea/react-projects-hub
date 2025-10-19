@@ -15,4 +15,7 @@ root.render(
 /**
  * what i have learned
  * 1. how to write redux code alone (the classic way)
+ * 2. creating different reducers with their action creators
+ * 3. combine differnt reducor into root reducer
+ * 4. testing them using simple dispatch
  */
