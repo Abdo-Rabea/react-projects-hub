@@ -25,4 +25,10 @@ root.render(
  *  then you can consoume any piece of data inside the store using useSelector
  * 6. react-redux: to organize and optimize the consuming of data but dispatching actions comes with redux (wrong)
  * 7. you have access to the dispatch function using useDispatch hook from react-redux
+ * 8.  using THUNK MIddleware for async. operations
+ *    after user dispatch action it goes to the diddleware (not store yet), then all of the async. code is done the action goes to the reducer with the data that comes
+ *  example: dispatch desposit action but after converting amount into usd dollars if the user dispatch another one
+ * applyMiddleware will enable dispatch function to accept function that will execute the side effect and then dispatch action whenever you want const store = createStore(root, applyMiddleware(thunk));
+ * now the component is clean without any async. call (all async. code in the central place for each feature)
+ * all packages: redux, react-redux, redux-thunk
  */
