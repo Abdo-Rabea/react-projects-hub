@@ -30,5 +30,6 @@ root.render(
  *  example: dispatch desposit action but after converting amount into usd dollars if the user dispatch another one
  * applyMiddleware will enable dispatch function to accept function that will execute the side effect and then dispatch action whenever you want const store = createStore(root, applyMiddleware(thunk));
  * now the component is clean without any async. call (all async. code in the central place for each feature)
+ * using RTK : it is compatible with redux + middleware (wow), but you code will be written in RTK way...
  * all packages: redux, react-redux, redux-thunk
  */

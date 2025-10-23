@@ -1,15 +1,16 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
+// all comes with redux toolkit
+
+import { configureStore } from "@reduxjs/toolkit";
 import accountReducer from "./features/accounts/accountSlice";
 import customerReducer from "./features/customers/customerSlice";
-import { thunk } from "redux-thunk";
-import { composeWithDevTools } from "@redux-devtools/extension";
 
-const root = combineReducers({
-  account: accountReducer,
-  customer: customerReducer,
+// so just grapping all of the boilerplate code and focusing on code that does something
+// ! note: you have only changed the store (the slices are the same) that is because redux+middleware and redux-toolkit are compatible
+const store = configureStore({
+  reducer: {
+    account: accountReducer,
+    customer: customerReducer,
+  },
 });
-
-// * applyMiddleware will enable dispatch function to accept function that will execute the side effect and then dispatch action whenever you want
-const store = createStore(root, composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;
