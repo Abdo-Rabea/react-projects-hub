@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# The React Redux Bank
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple banking app built to learn **state management with Redux** — from classic Redux setup to modern React-Redux integration and asynchronous logic using **Redux Thunk** and **Redux Toolkit (RTK)**.
 
-## Available Scripts
+---
+## Overview
 
-In the project directory, you can run:
+This project simulates basic banking operations like deposits, withdrawals, and currency conversions, while focusing on understanding **Redux from the ground up** — building reducers, combining them, dispatching actions, and integrating them into React components.
 
-### `npm start`
+---
+## Key Learnings
+### Redux Fundamentals
+- Learned how to **write Redux code standalone** (without React).
+- Created **multiple reducers** and **action creators** for different features.
+- **Combined reducers** into a single **root reducer** to manage complex state trees.
+- **Tested** the logic by dispatching actions manually and observing state changes.
+- Tested the logic using redux-devtools
+### React Integration (React-Redux)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Connected Redux with React using the **Provider** component — similar to Context API with reducers.
+- Consumed state inside components using the **useSelector** hook.
+- Accessed the **dispatch** function using **useDispatch**, enabling components to trigger actions.
+- Understood that:
+    - `react-redux` organizes and optimizes state consumption.
+    - `redux` itself handles the dispatching and updating of state.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Asynchronous Logic with Thunk
+- Used **Redux Thunk middleware** to handle asynchronous operations such as fetching or converting data.
+- Learned the flow:
+    1. Action dispatched → goes to middleware (not directly to reducer yet).
+    2. Middleware performs async work (e.g., currency conversion).
+    3. Once data is ready → dispatches another action with the result to the reducer.
+- Example:  
+    Dispatching a “deposit” action after converting the entered amount into USD.
+- Configured middleware with:
+    ```js
+    const store = createStore(rootReducer, applyMiddleware(thunk));
+    ```
+- This pattern keeps **components clean** — no async code inside them, all side effects are handled centrally.
 
-### `npm test`
+### Redux Toolkit (RTK)
+- Explored **Redux Toolkit** as a modern, concise way to write Redux logic.
+- Learned that RTK is **fully compatible** with Redux + middleware while simplifying syntax and reducing boilerplate.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
+## Tech Stack
+- **React**
+- **Redux** 
+- **React-Redux**
+- **Redux Thunk**
+- **Redux Toolkit**
+- **HTML - CSS - JS**
 
-### `npm run build`
+---
+## What I Learned
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project helped me:
+- Build Redux from scratch and understand its internal flow.
+- Organize and scale global state with multiple reducers.
+- Connect Redux cleanly with React using React-Redux hooks.
+- Manage async operations effectively with middleware.
+- Appreciate how **Redux Toolkit** improves the developer experience.
