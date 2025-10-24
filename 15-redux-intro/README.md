@@ -8,6 +8,11 @@ A simple banking app built to learn **state management with Redux** — from cla
 This project simulates basic banking operations like deposits, withdrawals, and currency conversions, while focusing on understanding **Redux from the ground up** — building reducers, combining them, dispatching actions, and integrating them into React components.
 
 ---
+## Demo
+[Live demo](https://rabea-redux-bank.netlify.app/)
+
+![screen](screen.png)
+- - - 
 ## Key Learnings
 ### Redux Fundamentals
 - Learned how to **write Redux code standalone** (without React).

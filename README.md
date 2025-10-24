@@ -24,6 +24,7 @@ Each project is listed below with links to:
 | 9   | World Wise      | [Repo](./11-worldwise)       | [Demo](https://worldwise-rabea.netlify.app/)       |
 | 10  | Atomic Blog     | [Repo](./12-atomic-blog)     | [Demo](https://atomic-blog-rabea.netlify.app/)     |
 | 11  | Workout Timer   | [Repo](./13-workout-timer)   | [Demo](https://workout-timer-rabea.netlify.app/)   |
+| 12  | The Redux Bank  | [Repo](./15-redux-intro)     | [Demo](https://rabea-redux-bank.netlify.app/)      |
  
 ---
 ## Challenge Index
