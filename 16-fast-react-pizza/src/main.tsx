@@ -12,6 +12,7 @@ createRoot(document.getElementById("root")!).render(
  * what i have learned
  * 1. introducing ts for the first time in a project
  * 2. how to make profissional file structure (based on features)
+ * 3. learn how to make AppLayout (don't have routes): this is the fixed part that is always visible and its children are rendered based in Outlet when its path match the url -> paths can really be anything
  */
 
 /**
