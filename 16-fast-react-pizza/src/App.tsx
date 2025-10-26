@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
-import Test from "./Test";
 
 function App() {
   const [count, setCount] = useState<number>(2);
 
-  useEffect(function () {
-    console.log(count);
-  }, []);
-  return (
-    <div>
-      <Test>helo</Test>
-    </div>
+  useEffect(
+    function () {
+      console.log(count);
+    },
+    [count]
   );
+  return <div></div>;
 }
 
 export default App;
