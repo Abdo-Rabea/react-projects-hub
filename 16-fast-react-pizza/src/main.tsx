@@ -13,6 +13,18 @@ createRoot(document.getElementById("root")!).render(
  * 1. introducing ts for the first time in a project
  * 2. how to make profissional file structure (based on features)
  * 3. learn how to make AppLayout (don't have routes): this is the fixed part that is always visible and its children are rendered based in Outlet when its path match the url -> paths can really be anything
+ * 3. react-router for fetching data
+ * in previous project you have used:
+ *    fetch on render : means that the request is fired off after the component render
+ *    but now you are using: fetch as render: the request and component render are fired together
+ * step:
+ *    1. define the loader function -> it is convension to put the definition inside the component page
+ *    2. provide the loader function to the react-router so that it can fire the request with the page start to render
+ *    3. consume the retuned data in the component using (useLoaderData: Returns the data from the closest route loader or clientLoader.)
+ * 4. now react router is not responsible for matching url with the correct page only but also for providing data to that page (wow)
+ * 5. use useNavigation hook to get the global state (: idle , loading, submitting)
+ * 6. use handle error using react-router : just assign errorElement that will be rendered when a certain loader or action faild (error bubbles up the tree)
+ *    useRouteError to get access to the error message.
  */
 
 /**

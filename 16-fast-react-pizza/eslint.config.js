@@ -24,6 +24,8 @@ export default defineConfig([
       "react-hooks/rules-of-hooks": "error",
 
       "@typescript-eslint/no-unused-vars": ["warn"],
+
+      "react-refresh/only-export-components": "off",
     },
     settings: {
       react: {
