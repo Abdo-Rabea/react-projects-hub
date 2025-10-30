@@ -53,7 +53,6 @@ function Order() {
   );
 }
 export async function loader({ params }: LoaderFunctionArgs) {
-  console.log(params.orderId);
   return await getOrder(String(params.orderId));
 }
 export default Order;

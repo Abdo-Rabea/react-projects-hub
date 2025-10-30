@@ -25,6 +25,15 @@ createRoot(document.getElementById("root")!).render(
  * 5. use useNavigation hook to get the global state (: idle , loading, submitting)
  * 6. use handle error using react-router : just assign errorElement that will be rendered when a certain loader or action faild (error bubbles up the tree)
  *    useRouteError to get access to the error message.
+ * 7. use react-router form to make actions post , update the server states
+ * what is happening there
+ *    <Form> submit   →  React Router intercepts
+                      →  creates Request
+                      →  calls action(request)
+                      →  you process formData and make real API call
+                      →  return data or redirect
+                      →  UI updates automatically
+ * from validation using const errors = useActionData(); to get the returned errors object that is validated in the action
  */
 
 /**
