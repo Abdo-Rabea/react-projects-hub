@@ -11,7 +11,7 @@ function SearchOrder() {
     setQuery("");
   }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="ml-auto md:mr-2">
       <input
         placeholder="Search Order ..."
         value={query}

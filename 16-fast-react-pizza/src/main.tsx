@@ -5,7 +5,7 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />
-  </StrictMode>
+  </StrictMode>,
 );
 
 /**
@@ -34,6 +34,16 @@ createRoot(document.getElementById("root")!).render(
                       →  return data or redirect
                       →  UI updates automatically
  * from validation using const errors = useActionData(); to get the returned errors object that is validated in the action
+ * 8. uisng tailwindcss to style the entire app
+ *    the main advantages: is that you don't have to   switch between files
+      faster development: you don't have to come up with these class names
+      there are many predefined usefull styles 
+      - responsive design with tailwindcss : mobile first design => start with mobile design then with eary breakpoint you decide change the styles you want
+      - the long story short of tailwindcss : This is what we mean when we say a utility class can be applied conditionally — by using variants you can control exactly how your design behaves in different states, without ever leaving your HTML.
+      - layout using flex and grid
+
+
+
  */
 
 /**
