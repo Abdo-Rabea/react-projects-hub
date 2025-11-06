@@ -41,6 +41,7 @@ createRoot(document.getElementById("root")!).render(
       - responsive design with tailwindcss : mobile first design => start with mobile design then with eary breakpoint you decide change the styles you want
       - the long story short of tailwindcss : This is what we mean when we say a utility class can be applied conditionally — by using variants you can control exactly how your design behaves in different states, without ever leaving your HTML.
       - layout using flex and grid
+      - Element state: sudo-classes in css (ex. hover)
 
 
 
