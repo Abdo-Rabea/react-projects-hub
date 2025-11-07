@@ -44,6 +44,7 @@ createRoot(document.getElementById("root")!).render(
       - Element state: sudo-classes in css (ex. hover)
       - rusing styles using @apply with class name (not prefered as it get you back to the way css is written - so don't use it as you can) BUT IT GIVES YOU REALLY POWERFULL FEATURE OF ADDING MORE CUSTOME STYLES FOR EACH ELEMENT THAT HAS GIVEN THE GLOBAL STYLE
       - better way of using styles of tailwind is by reusing components 
+      - adding custome styles using theme variables
 
 
 reusing styles 

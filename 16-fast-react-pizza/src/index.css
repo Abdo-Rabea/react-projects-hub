@@ -13,6 +13,11 @@
 } */
 @import "tailwindcss";
 
+/* what a greate update */
+@theme {
+  --font-sans: "Roboto Mono", monospace;
+}
+
 @layer components {
   .input {
     /* apply to be able to use tailwind css utility classes */
