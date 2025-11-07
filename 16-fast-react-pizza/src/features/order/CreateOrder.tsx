@@ -6,6 +6,7 @@ import {
   type ActionFunctionArgs,
 } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
+import Button from "../../ui/Button";
 // import type { Route } from "+types/project";
 
 // https://uibakery.io/regex-library/phone-number
@@ -58,13 +59,13 @@ function CreateOrder() {
       <Form method="POST" action="/order/new">
         <div>
           <label>First Name</label>
-          <input type="text" name="customer" required />
+          <input type="text" name="customer" required className="input" />
         </div>
 
         <div>
           <label>Phone number</label>
           <div>
-            <input type="tel" name="phone" required />
+            <input type="tel" name="phone" required className="input" />
             {errors?.phone && <p>{errors.phone}</p>}
           </div>
         </div>
@@ -72,7 +73,7 @@ function CreateOrder() {
         <div>
           <label>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <input className="input" type="text" name="address" required />
           </div>
         </div>
 
@@ -90,12 +91,9 @@ function CreateOrder() {
         </div>
 
         <div>
-          <button
-            disabled={isSubmitting}
-            className="hover: cursor-pointer rounded-full bg-yellow-400 px-4 py-3 font-semibold tracking-wide text-stone-800 uppercase transition-colors duration-300 outline-none hover:bg-yellow-300 hover:text-stone-700 focus:bg-yellow-300 focus:text-stone-800 focus:ring-3 focus:ring-yellow-300 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-yellow-400 disabled:text-stone-800"
-          >
+          <Button disabled={isSubmitting}>
             {isSubmitting ? "Placing order..." : "Order now"}
-          </button>
+          </Button>
         </div>
       </Form>
     </div>

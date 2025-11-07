@@ -42,9 +42,11 @@ createRoot(document.getElementById("root")!).render(
       - the long story short of tailwindcss : This is what we mean when we say a utility class can be applied conditionally — by using variants you can control exactly how your design behaves in different states, without ever leaving your HTML.
       - layout using flex and grid
       - Element state: sudo-classes in css (ex. hover)
+      - rusing styles using @apply with class name (not prefered as it get you back to the way css is written - so don't use it as you can) BUT IT GIVES YOU REALLY POWERFULL FEATURE OF ADDING MORE CUSTOME STYLES FOR EACH ELEMENT THAT HAS GIVEN THE GLOBAL STYLE
+      - better way of using styles of tailwind is by reusing components 
 
 
-
+reusing styles 
  */
 
 /**
