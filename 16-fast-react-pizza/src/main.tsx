@@ -2,9 +2,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import { Provider } from "react-redux";
+import store from "./store.ts";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>,
 );
 
@@ -45,7 +49,7 @@ createRoot(document.getElementById("root")!).render(
       - rusing styles using @apply with class name (not prefered as it get you back to the way css is written - so don't use it as you can) BUT IT GIVES YOU REALLY POWERFULL FEATURE OF ADDING MORE CUSTOME STYLES FOR EACH ELEMENT THAT HAS GIVEN THE GLOBAL STYLE
       - better way of using styles of tailwind is by reusing components 
       - adding custome styles using theme variables
-
+ * 9. using redux toolkit for handling global ui state
 
 reusing styles 
  */
