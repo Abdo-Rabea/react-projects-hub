@@ -56,7 +56,7 @@ reusing styles
 
 /**
  * Tech stack
- * 1. react with typescript
+ * 1. react with typescript (  // note: you specify the props when you define a function or an object or vars (correct me gpt if i am wrong))
  * 2. React Router: the standard for react spa
  * 3. tailwindcss: for styling
  * 4. React Router: for Remote State management

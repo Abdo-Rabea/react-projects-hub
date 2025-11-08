@@ -42,7 +42,7 @@ const userSlice = createSlice({
   },
 });
 
-const updateUsername = userSlice.actions;
+const { updateUsername } = userSlice.actions;
 
 export { updateUsername };
 
