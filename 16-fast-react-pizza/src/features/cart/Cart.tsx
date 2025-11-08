@@ -32,7 +32,7 @@ function Cart() {
   return (
     <div className="px-4 py-3">
       <LinkButton to="/menu">&larr; Back to menu</LinkButton>
-      <h2 className="mt-7 mb-3">Your cart, %NAME%</h2>
+      <h2 className="mt-7 mb-2 text-xl font-semibold">Your cart, %NAME%</h2>
       <ul className="divide-y divide-stone-300 border-b border-stone-300">
         {cart.map((item) => (
           <CartItem item={item} key={item.pizzaId} />

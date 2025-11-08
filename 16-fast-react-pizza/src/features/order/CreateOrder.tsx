@@ -49,35 +49,69 @@ function CreateOrder() {
   const cart = fakeCart;
 
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
+    <div className="px-4 py-5">
+      <h2 className="mb-7 text-xl font-semibold text-stone-700">
+        Ready to order? Let's go!
+      </h2>
       {/* *wow every thing is handled inside the form so no states are required */}
       {
         /* <Form method="POST" action="/order/new"> */
         // no need to write the action here because react-router will match it with the closest action (just like loader)
       }
-      <Form method="POST" action="/order/new">
-        <div>
-          <label>First Name</label>
-          <input type="text" name="customer" required className="input" />
+      <Form method="POST" action="/order/new" className="space-y-4">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-center">
+          <label htmlFor="customerName" className="sm:basis-40">
+            First Name
+          </label>
+          <input
+            type="text"
+            id="customerName"
+            name="customer"
+            required
+            className="input flex-1"
+          />
         </div>
 
-        <div>
-          <label>Phone number</label>
-          <div>
-            <input type="tel" name="phone" required className="input" />
-            {errors?.phone && <p>{errors.phone}</p>}
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-center">
+          <label
+            htmlFor="phone"
+            className={`${errors?.phone ? "sm:-mt-10" : ""} sm:basis-40`}
+          >
+            Phone number
+          </label>
+          {/* it works because of flex-basis: 0 instead of auto <- fit-content */}
+          <div className="flex-1">
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              required
+              className="input w-full"
+            />
+            {errors?.phone && (
+              <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
+                {errors.phone}
+              </p>
+            )}
           </div>
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
-            <input className="input" type="text" name="address" required />
+        <div className="sm flex flex-col gap-1 sm:flex-row sm:items-center">
+          <label htmlFor="address" className="sm:basis-40">
+            Address
+          </label>
+          <div className="flex-1">
+            <input
+              className="input w-full"
+              type="text"
+              id="address"
+              name="address"
+              required
+            />
           </div>
         </div>
 
-        <div>
+        <div className="mb-10 flex items-center gap-4">
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <input
             type="checkbox"
@@ -87,7 +121,9 @@ function CreateOrder() {
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label className="font-semibold" htmlFor="priority">
+            Want to give your order priority?
+          </label>
         </div>
 
         <div>
