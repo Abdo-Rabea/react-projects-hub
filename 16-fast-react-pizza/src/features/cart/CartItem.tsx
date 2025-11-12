@@ -1,15 +1,9 @@
+import type { pizzaItem } from "../../types/pizzaItem";
 import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/helpers";
 
-type Item = {
-  pizzaId: number;
-  name: string;
-  quantity: number;
-  totalPrice: number;
-};
-
 type props = {
-  item: Item;
+  item: pizzaItem;
 };
 
 function CartItem({ item }: props) {
