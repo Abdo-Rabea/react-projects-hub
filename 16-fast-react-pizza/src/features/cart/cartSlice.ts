@@ -35,12 +35,12 @@ const cartSlice = createSlice({
     },
     decreaseItemQuantity(state, action) {
       // payload: pizzaID
-      // todo: may be deleted
       const item = state.cart.find((item) => item.pizzaId === action.payload);
       if (item !== undefined) {
         item.quantity--;
         item.totalPrice = item.unitPrice * item.quantity;
-        // if (item.quantity === 0) this.deleteItem(item.pizzaId);
+        if (item.quantity === 0)
+          cartSlice.caseReducers.deleteItem(state, action);
       }
     },
     clearCart(state) {
@@ -60,8 +60,14 @@ export const {
 export default cartSlice.reducer;
 
 // selector functions
-export const selectCartTotalQuantity = (store: RootState) =>
-  store.cart.cart.reduce((acc, item) => item.quantity + acc, 0);
 
-export const selectCartTotalPrice = (store: RootState) =>
-  store.cart.cart.reduce((acc, item) => item.totalPrice + acc, 0);
+export const selectCart = (state: RootState) => state.cart.cart;
+
+export const selectCartTotalQuantity = (state: RootState) =>
+  state.cart.cart.reduce((acc, item) => item.quantity + acc, 0);
+
+export const selectCartTotalPrice = (state: RootState) =>
+  state.cart.cart.reduce((acc, item) => item.totalPrice + acc, 0);
+
+export const selectPizzaQuantityById = (id: number) => (state: RootState) =>
+  state.cart.cart.find((item) => item.pizzaId === id)?.quantity ?? 0;

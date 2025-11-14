@@ -1,6 +1,7 @@
 import type { pizzaItem } from "../../types/pizzaItem";
-import Button from "../../ui/Button";
 import { formatCurrency } from "../../utils/helpers";
+import DeleteItem from "./DeleteItem";
+import UpdateItemQuantity from "./UpdateItemQuantity";
 
 type props = {
   item: pizzaItem;
@@ -16,7 +17,8 @@ function CartItem({ item }: props) {
       </p>
       <div className="flex items-center justify-between gap-x-4">
         <p className="">{formatCurrency(totalPrice)}</p>
-        <Button type="small">Delete</Button>
+        <UpdateItemQuantity id={pizzaId} quantity={quantity} />
+        <DeleteItem pizzaId={pizzaId} />
       </div>
     </li>
   );
