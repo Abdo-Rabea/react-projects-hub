@@ -7,13 +7,14 @@ import {
 } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../ui/Button";
-import { useSelector } from "react-redux";
-import type { RootState } from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../store";
 import { clearCart, selectCart, selectCartTotalPrice } from "../cart/cartSlice";
 import store from "../../store";
 import EmptyCart from "../cart/EmptyCart";
 import { formatCurrency } from "../../utils/helpers";
 import { useState } from "react";
+import { fetchAddress } from "../user/userSlice";
 
 // import type { Route } from "+types/project";
 
@@ -29,6 +30,8 @@ function CreateOrder() {
   const isSubmitting = navigation.state === "submitting";
   const username = useSelector((store: RootState) => store.user.username);
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const errors = useActionData();
   const cart = useSelector(selectCart);
 
@@ -36,9 +39,16 @@ function CreateOrder() {
   const priorityPrice = withPriority ? cartPrice * 0.2 : 0;
   const totalPrice = cartPrice + priorityPrice;
 
+  function handleGetAddress() {
+    dispatch(fetchAddress());
+  }
+
   if (cart.length === 0) return <EmptyCart />;
   return (
     <div className="px-4 py-5">
+      <Button type="primary" onClick={handleGetAddress}>
+        Get location
+      </Button>
       <h2 className="mb-7 text-xl font-semibold text-stone-700">
         Ready to order? Let's go!
       </h2>
