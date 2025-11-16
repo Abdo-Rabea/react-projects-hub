@@ -14,7 +14,7 @@ import store from "../../store";
 import EmptyCart from "../cart/EmptyCart";
 import { formatCurrency } from "../../utils/helpers";
 import { useState } from "react";
-import { fetchAddress } from "../user/userSlice";
+import { fetchAddress, selectUser } from "../user/userSlice";
 
 // import type { Route } from "+types/project";
 
@@ -39,16 +39,18 @@ function CreateOrder() {
   const priorityPrice = withPriority ? cartPrice * 0.2 : 0;
   const totalPrice = cartPrice + priorityPrice;
 
-  function handleGetAddress() {
+  // address
+  const { address, status, error: addressError } = useSelector(selectUser);
+  const isLoadingAddress = status === "loading";
+  console.log(isLoadingAddress);
+  function handleGetAddress(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     dispatch(fetchAddress());
   }
 
   if (cart.length === 0) return <EmptyCart />;
   return (
     <div className="px-4 py-5">
-      <Button type="primary" onClick={handleGetAddress}>
-        Get location
-      </Button>
       <h2 className="mb-7 text-xl font-semibold text-stone-700">
         Ready to order? Let's go!
       </h2>
@@ -97,17 +99,37 @@ function CreateOrder() {
         </div>
 
         <div className="sm flex flex-col gap-1 sm:flex-row sm:items-center">
-          <label htmlFor="address" className="sm:basis-40">
+          <label
+            htmlFor="address"
+            className={`${status === "error" ? "sm:-mt-10" : ""} sm:basis-40`}
+          >
             Address
           </label>
-          <div className="flex-1">
+          <div className="relative flex-1" key={address}>
             <input
               className="input w-full"
               type="text"
               id="address"
               name="address"
               required
+              defaultValue={address}
             />
+            {status === "error" && (
+              <p className="mt-2 rounded-md bg-red-100 p-2 text-xs text-red-700">
+                {addressError}
+              </p>
+            )}
+            <span className="absolute top-[3px] right-[3px] z-50">
+              {address === "" && (
+                <Button
+                  disabled={isLoadingAddress}
+                  type="small"
+                  onClick={handleGetAddress}
+                >
+                  Get location
+                </Button>
+              )}
+            </span>
           </div>
         </div>
 
@@ -127,7 +149,7 @@ function CreateOrder() {
         </div>
 
         <div>
-          <Button type="primary" disabled={isSubmitting}>
+          <Button type="primary" disabled={isSubmitting || isLoadingAddress}>
             {isSubmitting
               ? "Placing order..."
               : `Order now for ${formatCurrency(totalPrice)}`}
@@ -146,7 +168,7 @@ export async function action({ request }: ActionFunctionArgs) {
     priority: data.priority === "true",
     cart: JSON.parse(String(data.cart)),
   };
-
+  console.log(order);
   // form validation
   const errors: { phone?: string } = {};
   if (!isValidPhone(String(data.phone))) {

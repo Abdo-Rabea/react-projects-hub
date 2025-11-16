@@ -50,6 +50,7 @@ createRoot(document.getElementById("root")!).render(
       - better way of using styles of tailwind is by reusing components 
       - adding custome styles using theme variables
  * 9. using redux toolkit for handling global ui state
+  10. using redux thunk to handle global remote state
 
 reusing styles 
  */

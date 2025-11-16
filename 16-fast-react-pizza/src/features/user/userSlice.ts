@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAddress } from "../../services/apiGeocoding";
+import type { RootState } from "../../store";
 
 function getPosition(): Promise<GeolocationPosition> {
   return new Promise(function (resolve, reject) {
@@ -63,7 +64,8 @@ const userSlice = createSlice({
       })
       .addCase(fetchAddress.rejected, (state, action) => {
         state.status = "error";
-        state.error = action.error.message;
+        state.error =
+          "An error occured while getting your location. Make sure to fill your address";
       });
   },
 });
@@ -73,3 +75,5 @@ const { updateUsername } = userSlice.actions;
 export { updateUsername };
 
 export default userSlice.reducer;
+
+export const selectUser = (state: RootState) => state.user;
