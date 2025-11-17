@@ -15,6 +15,7 @@ import OrderItem from "./OrderItem";
 import type { Item } from "../../types/OrderItem";
 import { useEffect } from "react";
 import type { Pizza } from "../../types/pizza";
+import UpdateOrderPriority from "./UpdateOrderPriority";
 
 function Order() {
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
@@ -99,6 +100,7 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+      {!priority && <UpdateOrderPriority />}
     </div>
   );
 }

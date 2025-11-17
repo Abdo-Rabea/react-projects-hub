@@ -42,7 +42,7 @@ function CreateOrder() {
   // address
   const { address, status, error: addressError } = useSelector(selectUser);
   const isLoadingAddress = status === "loading";
-  console.log(isLoadingAddress);
+
   function handleGetAddress(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(fetchAddress());
@@ -168,7 +168,7 @@ export async function action({ request }: ActionFunctionArgs) {
     priority: data.priority === "true",
     cart: JSON.parse(String(data.cart)),
   };
-  console.log(order);
+
   // form validation
   const errors: { phone?: string } = {};
   if (!isValidPhone(String(data.phone))) {
