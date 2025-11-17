@@ -51,6 +51,7 @@ createRoot(document.getElementById("root")!).render(
       - adding custome styles using theme variables
  * 9. using redux toolkit for handling global ui state
   10. using redux thunk to handle global remote state
+  11: use react-router fetcher to fetch data without navigation fetch on render not as render
 
 reusing styles 
  */
