@@ -11,20 +11,21 @@ Each project is listed below with links to:
 ---
 ## Project Index
 
-| #   | Project Name    | GitHub Repo                  | Live Demo                                          |
-| --- | --------------- | ---------------------------- | -------------------------------------------------- |
-| 1   | Pure React      | [Repo](./01-pure-react)      | [Demo](./01-pure-react/index.html)                 |
-| 2   | Pizza Menu      | [Repo](./03-pizza-menu)      | [Demo](https://fast-pizza-menue.netlify.app/)      |
-| 3   | Steps           | [Repo](./04-steps)           | [Demo](https://steps1.netlify.app/)                |
-| 4   | Travel List     | [Repo](./05-travel-list)     | [Demo](https://travel-lis.netlify.app/)            |
-| 5   | Eat & Split     | [Repo](./06-eat-n-split)     | [Demo](https://eat-n-split-rabea.netlify.app/)     |
-| 6   | usePopcorn      | [Repo](./07-usepopcorn)      | [Demo](https://usepopcorn-rabea.netlify.app/)      |
-| 7   | How React Works | [Repo](./08-how-react-works) | [Demo](https://how-react-works-rabea.netlify.app/) |
-| 8   | React Quiz      | [Repo](./10-react-quiz)      | [Demo](https://react-quiz-rabea.netlify.app/)      |
-| 9   | World Wise      | [Repo](./11-worldwise)       | [Demo](https://worldwise-rabea.netlify.app/)       |
-| 10  | Atomic Blog     | [Repo](./12-atomic-blog)     | [Demo](https://atomic-blog-rabea.netlify.app/)     |
-| 11  | Workout Timer   | [Repo](./13-workout-timer)   | [Demo](https://workout-timer-rabea.netlify.app/)   |
-| 12  | The Redux Bank  | [Repo](./15-redux-intro)     | [Demo](https://rabea-redux-bank.netlify.app/)      |
+| #   | Project Name         | GitHub Repo                   | Live Demo                                           |
+| --- | -------------------- | ----------------------------- | --------------------------------------------------- |
+| 1   | Pure React           | [Repo](./01-pure-react)       | [Demo](./01-pure-react/index.html)                  |
+| 2   | Pizza Menu           | [Repo](./03-pizza-menu)       | [Demo](https://fast-pizza-menue.netlify.app/)       |
+| 3   | Steps                | [Repo](./04-steps)            | [Demo](https://steps1.netlify.app/)                 |
+| 4   | Travel List          | [Repo](./05-travel-list)      | [Demo](https://travel-lis.netlify.app/)             |
+| 5   | Eat & Split          | [Repo](./06-eat-n-split)      | [Demo](https://eat-n-split-rabea.netlify.app/)      |
+| 6   | usePopcorn           | [Repo](./07-usepopcorn)       | [Demo](https://usepopcorn-rabea.netlify.app/)       |
+| 7   | How React Works      | [Repo](./08-how-react-works)  | [Demo](https://how-react-works-rabea.netlify.app/)  |
+| 8   | React Quiz           | [Repo](./10-react-quiz)       | [Demo](https://react-quiz-rabea.netlify.app/)       |
+| 9   | World Wise           | [Repo](./11-worldwise)        | [Demo](https://worldwise-rabea.netlify.app/)        |
+| 10  | Atomic Blog          | [Repo](./12-atomic-blog)      | [Demo](https://atomic-blog-rabea.netlify.app/)      |
+| 11  | Workout Timer        | [Repo](./13-workout-timer)    | [Demo](https://workout-timer-rabea.netlify.app/)    |
+| 12  | The Redux Bank       | [Repo](./15-redux-intro)      | [Demo](https://rabea-redux-bank.netlify.app/)       |
+| 13  | Fast React Pizza CO. | [Repo](./16-fast-react-pizza) | [Demo](https://rabea-fast-react-pizza.netlify.app/) |
  
 ---
 ## Challenge Index
