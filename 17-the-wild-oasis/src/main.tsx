@@ -21,4 +21,5 @@ createRoot(document.getElementById("root")!).render(
  * 4. context api: global ui state management
  * 5. react hook form: form management
  * 6. other tools: React icons - react hot toast - recharts - date-fns - supabase
+ * the ways of styling i have learned through out this course css modules - tailwind css - styled components
  */
