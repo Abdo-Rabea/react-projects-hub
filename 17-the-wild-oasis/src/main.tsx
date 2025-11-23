@@ -10,7 +10,8 @@ createRoot(document.getElementById("root")!).render(
 
 /**
  * What i have learned?
- *
+ * create a responsive layout
+ * create buetifull sidebar with extending the styles of NavLink from react-router using styled-components
  */
 
 /**

@@ -1,58 +1,35 @@
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Bookings from "./pages/Bookings";
+import Cabins from "./pages/Cabins";
+import NewUsers from "./pages/Users";
+import Settings from "./pages/Settings";
+import Account from "./pages/Account";
+import Login from "./pages/Login";
+import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
-import Heading from "./ui/Heading";
-import styled from "styled-components";
-import Row from "./ui/Row";
-const StyledApp = styled.div`
-  background-color: #eee;
-`;
+import AppLayout from "./ui/AppLayout";
 
 function App() {
   return (
-    <StyledApp>
+    <>
       <GlobalStyles />
-      <Row $type="horizontal">
-        <Heading as="h1">The wild Oasis Hotel</Heading>
-        <div>
-          <Heading as="h2">Check-in & check-out</Heading>
-          <Button $variations="primary" $size="small">
-            Check-in
-          </Button>
-          <Button $variations="secondary" $size="small">
-            Check-in
-          </Button>
-          <Button $variations="danger" $size="small">
-            Check-in
-          </Button>
-          <Button $variations="primary" $size="medium">
-            Check-in
-          </Button>
-          <Button $variations="secondary" $size="medium">
-            Check-in
-          </Button>
-          <Button $variations="danger" $size="medium">
-            Check-in
-          </Button>
-          <Button $variations="primary" $size="large">
-            Check-in
-          </Button>
-          <Button $variations="secondary" $size="large">
-            Check-in
-          </Button>
-          <Button $variations="danger" $size="large">
-            Check-in
-          </Button>
-        </div>
-      </Row>
-      <Row>
-        <Heading as="h3">Form</Heading>
-        <div>
-          <Input placeholder="Number of guests" />
-          <Input placeholder="Number of guests" />
-        </div>
-      </Row>
-    </StyledApp>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<Navigate replace to="dashboard" />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="bookings" element={<Bookings />} />
+            <Route path="cabins" element={<Cabins />} />
+            <Route path="users" element={<NewUsers />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="account" element={<Account />} />
+          </Route>
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
