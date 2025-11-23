@@ -10,8 +10,11 @@ createRoot(document.getElementById("root")!).render(
 
 /**
  * What i have learned?
- * create a responsive layout
- * create buetifull sidebar with extending the styles of NavLink from react-router using styled-components
+ * 1. create a responsive layout
+ * 2. create buetifull sidebar with extending the styles of NavLink from react-router using styled-components
+ * 3. using supabase: handle global remote state
+ * 4. i am creating a fullstack application using react and supabase (wow)
+ *
  */
 
 /**
