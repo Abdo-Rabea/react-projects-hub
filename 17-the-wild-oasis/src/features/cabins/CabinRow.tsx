@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import type { Cabin } from "../../types/cabin";
 import { formatCurrency } from "../../utils/helpers";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteCabin } from "../../services/apiCabins";
 
 const TableRow = styled.div`
   display: grid;
@@ -42,7 +44,23 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }: { cabin: Cabin }) {
-  const { image, name, maxCapacity, regularPrice, discount } = cabin;
+  const { id, image, name, maxCapacity, regularPrice, discount } = cabin;
+
+  const queryClient = useQueryClient();
+
+  const { isPending: isDeleting, mutate } = useMutation({
+    mutationFn: deleteCabin,
+    mutationKey: ["cabins"],
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      console.log("success on deleting a cabin");
+    },
+    // * the error passed here is the one thrown using mutation function
+    onError: (e) => {
+      console.log(e.message);
+    },
+  });
+
   return (
     <TableRow>
       <Img src={image || undefined} alt={String(cabin.name)} />
@@ -50,7 +68,9 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
       <div>fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
-      <button>delete</button>
+      <button onClick={() => mutate(id)} disabled={isDeleting}>
+        delete
+      </button>
     </TableRow>
   );
 }
