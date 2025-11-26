@@ -3,6 +3,7 @@ import type { Cabin } from "../../types/cabin";
 import { formatCurrency } from "../../utils/helpers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
+import toast from "react-hot-toast";
 
 const TableRow = styled.div`
   display: grid;
@@ -53,11 +54,11 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
     mutationKey: ["cabins"],
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      console.log("success on deleting a cabin");
+      toast.success("Cabin deleted successfully");
     },
     // * the error passed here is the one thrown using mutation function
     onError: (e) => {
-      console.log(e.message);
+      toast.error(e.message);
     },
   });
 
