@@ -1,5 +1,6 @@
 import type { Cabin } from "../types/cabin";
-import supabase from "./supabase";
+import type { FromCabin } from "../types/FormCabin";
+import supabase, { supabaseUrl } from "./supabase";
 
 export async function getCabins() {
   const { data, error } = await supabase.from("cabins").select("*");
@@ -39,10 +40,23 @@ export async function deleteCabin(id: number) {
     throw new Error("Can't delete the cabin");
   }
 }
-
+// https://dkkxhgdwqmicbaaajvok.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
 // todo: create a cabin using supabase client
-export async function createCabin(cabin: Cabin) {
-  const { data, error } = await supabase
+type CabinPayload = Omit<FromCabin, "image"> & {
+  image: File;
+};
+export async function createCabin(data: CabinPayload) {
+  // 0. prepare image path
+
+  // https://dkkxhgdwqmicbaaajvok.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
+  const imageName = `${Math.random()}-${data.image.name.replace("/", "")}`;
+  const imagePath =
+    supabaseUrl + "/storage/v1/object/public/cabin-images/" + imageName;
+
+  const cabin: Cabin = { ...data, image: imagePath };
+
+  // 1. create the cabin
+  const { data: returnCabin, error } = await supabase
     .from("cabins")
     .insert([cabin])
     .select();
@@ -51,5 +65,15 @@ export async function createCabin(cabin: Cabin) {
     throw new Error("Can't create the cabin");
   }
 
-  return data;
+  // 2. upload image
+  const { error: UploadImageError } = await supabase.storage
+    .from("cabin-images")
+    .upload(imageName, data.image);
+
+  if (UploadImageError) {
+    throw new Error("The image can't be uploaded (cabin created.)");
+  }
+  // ! 3. delete cabin if there is an error uploading image <-- i think it is so bad so i will not so ?
+
+  return returnCabin;
 }

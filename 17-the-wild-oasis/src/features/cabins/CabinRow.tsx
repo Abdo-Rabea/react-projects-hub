@@ -64,7 +64,7 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
 
   return (
     <TableRow>
-      <Img src={image || undefined} alt={String(cabin.name)} />
+      <Img src={image || "/cabin-placeholder.png"} alt={String(cabin.name)} />
       <Cabin>{name}</Cabin>
       <div>fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>

@@ -14,7 +14,7 @@ createRoot(document.getElementById("root")!).render(
  * 2. create buetifull sidebar with extending the styles of NavLink from react-router using styled-components
  * 3. using supabase: handle global remote state
  * 4. i am creating a fullstack application using react and supabase (wow)
- *
+ * 5. react-hook-form to handle form and form validation
  */
 
 /**

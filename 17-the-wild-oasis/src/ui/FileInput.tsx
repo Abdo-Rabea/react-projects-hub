@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-const FileInput = styled.input`
+// !it is called file input so it should abstract the type: file attribute so
+const FileInput = styled.input.attrs({ type: "file" })`
   font-size: 1.4rem;
   border-radius: var(--border-radius-sm);
 

@@ -1,10 +1,8 @@
-export interface Cabin {
-  id?: number;
-  created_at?: string;
+export interface FromCabin {
   name: string;
   maxCapacity: number;
   regularPrice: number;
   discount: number;
   description: string;
-  image: string;
+  image: FileList;
 }

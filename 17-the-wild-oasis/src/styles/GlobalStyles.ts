@@ -79,6 +79,27 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
+
+  /* width */
+  ::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--color-grey-300);
+  border-radius: var(--border-radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-grey-400);
+
+}
 }
 
 input,
