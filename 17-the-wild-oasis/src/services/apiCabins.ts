@@ -1,3 +1,4 @@
+import type { Cabin } from "../types/cabin";
 import supabase from "./supabase";
 
 export async function getCabins() {
@@ -37,4 +38,18 @@ export async function deleteCabin(id: number) {
   if (error) {
     throw new Error("Can't delete the cabin");
   }
+}
+
+// todo: create a cabin using supabase client
+export async function createCabin(cabin: Cabin) {
+  const { data, error } = await supabase
+    .from("cabins")
+    .insert([cabin])
+    .select();
+
+  if (error) {
+    throw new Error("Can't create the cabin");
+  }
+
+  return data;
 }
