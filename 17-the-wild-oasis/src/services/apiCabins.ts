@@ -1,5 +1,5 @@
-import type { Cabin } from "../types/cabin";
-import type { FromCabin } from "../types/FormCabin";
+import type { BaseCabin, Cabin } from "../types/cabin";
+import type { CabinPayload, FromCabin } from "../types/FormCabin";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getCabins() {
@@ -40,40 +40,57 @@ export async function deleteCabin(id: number) {
     throw new Error("Can't delete the cabin");
   }
 }
+
 // https://dkkxhgdwqmicbaaajvok.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
-// todo: create a cabin using supabase client
-type CabinPayload = Omit<FromCabin, "image"> & {
-  image: File;
-};
-export async function createCabin(data: CabinPayload) {
+// there is an id ->
+//                with file -> do the same image logic and update cabin.image
+//                with
+export async function createEditCabin(data: CabinPayload, id?: number) {
   // 0. prepare image path
+  const isEditing = !!id;
 
-  // https://dkkxhgdwqmicbaaajvok.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
-  const imageName = `${Math.random()}-${data.image.name.replace("/", "")}`;
-  const imagePath =
-    supabaseUrl + "/storage/v1/object/public/cabin-images/" + imageName;
+  let imageName: string = "",
+    imagePath: string = "";
 
-  const cabin: Cabin = { ...data, image: imagePath };
+  const withNewImage = typeof data.image === "object";
+  // same condition
+  if (withNewImage && typeof data.image === "object") {
+    imageName = `${Math.random()}-${data.image.name.replace("/", "")}`;
+    imagePath =
+      supabaseUrl + "/storage/v1/object/public/cabin-images/" + imageName;
+  } else if (typeof data.image !== "object") imagePath = data.image;
+
+  const cabin: BaseCabin = { ...data, image: imagePath };
 
   // 1. create the cabin
-  const { data: returnCabin, error } = await supabase
-    .from("cabins")
-    .insert([cabin])
-    .select();
+  const query = supabase.from("cabins");
+  let returnData;
+  if (isEditing) {
+    const { data, error } = await query.update(cabin).eq("id", id).select();
+    if (error) {
+      throw new Error("can't update the cabin");
+    }
+    returnData = data;
+  } else {
+    const { data, error } = await query.insert([cabin]).select();
 
-  if (error) {
-    throw new Error("Can't create the cabin");
+    if (error) {
+      throw new Error("Can't create the cabin");
+    }
+    returnData = data;
   }
 
   // 2. upload image
-  const { error: UploadImageError } = await supabase.storage
-    .from("cabin-images")
-    .upload(imageName, data.image);
+  if (withNewImage && typeof data.image === "object") {
+    const { error: UploadImageError } = await supabase.storage
+      .from("cabin-images")
+      .upload(imageName, data.image);
 
-  if (UploadImageError) {
-    throw new Error("The image can't be uploaded (cabin created.)");
+    if (UploadImageError) {
+      throw new Error("The image can't be uploaded (cabin created.)");
+    }
   }
   // ! 3. delete cabin if there is an error uploading image <-- i think it is so bad so i will not so ?
 
-  return returnCabin;
+  return returnData;
 }

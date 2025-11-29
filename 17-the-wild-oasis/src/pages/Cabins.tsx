@@ -2,7 +2,7 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 import CabinTable from "../features/cabins/CabinTable";
-import CreateCabinForm from "../features/cabins/CreateCabinForm";
+import CreateEditCabinForm from "../features/cabins/CreateEditCabinForm";
 import Button from "../ui/Button";
 
 function Cabins() {
@@ -17,7 +17,7 @@ function Cabins() {
       </Row>
       <Row>
         <Button>create new cabin</Button>
-        <CreateCabinForm />
+        <CreateEditCabinForm />
       </Row>
     </>
   );

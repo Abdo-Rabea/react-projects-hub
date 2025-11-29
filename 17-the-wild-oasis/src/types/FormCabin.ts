@@ -6,3 +6,7 @@ export interface FromCabin {
   description: string;
   image: FileList;
 }
+
+export type CabinPayload = Omit<FromCabin, "image"> & {
+  image: File | string;
+};
