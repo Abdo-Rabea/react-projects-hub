@@ -3,7 +3,7 @@ import type { CabinPayload } from "../../types/FormCabin";
 import { createEditCabin as createEditCabinApi } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 
-export function useCreateEditCabin(isEditSession: boolean) {
+export function useCreateEditCabin(isEditSession: boolean = false) {
   const queryClient = useQueryClient();
   const { mutate: createEditCabin, isPending: isWorking } = useMutation({
     mutationFn: ({ data, id }: { data: CabinPayload; id?: number }) =>

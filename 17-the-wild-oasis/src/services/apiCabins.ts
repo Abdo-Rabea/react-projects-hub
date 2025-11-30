@@ -1,5 +1,5 @@
-import type { BaseCabin, Cabin } from "../types/cabin";
-import type { CabinPayload, FromCabin } from "../types/FormCabin";
+import type { BaseCabin } from "../types/cabin";
+import type { CabinPayload } from "../types/FormCabin";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function getCabins() {
