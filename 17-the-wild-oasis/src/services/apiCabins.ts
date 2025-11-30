@@ -66,13 +66,17 @@ export async function createEditCabin(data: CabinPayload, id?: number) {
   const query = supabase.from("cabins");
   let returnData;
   if (isEditing) {
-    const { data, error } = await query.update(cabin).eq("id", id).select();
+    const { data, error } = await query
+      .update(cabin)
+      .eq("id", id)
+      .select()
+      .single();
     if (error) {
       throw new Error("can't update the cabin");
     }
     returnData = data;
   } else {
-    const { data, error } = await query.insert([cabin]).select();
+    const { data, error } = await query.insert([cabin]).select().single();
 
     if (error) {
       throw new Error("Can't create the cabin");

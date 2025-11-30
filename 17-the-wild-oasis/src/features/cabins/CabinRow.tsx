@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import type { Cabin } from "../../types/cabin";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import { useState } from "react";
 import CreateEditCabinForm from "./CreateEditCabinForm";
+import { useDeleteCabin } from "./useDeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -48,23 +46,9 @@ const Discount = styled.div`
 
 function CabinRow({ cabin }: { cabin: Cabin }) {
   const [showEditForm, setShowOpenForm] = useState<boolean>(false);
+  const { isDeleting, deleteCabin } = useDeleteCabin();
 
   const { id, image, name, maxCapacity, regularPrice, discount } = cabin;
-
-  const queryClient = useQueryClient();
-
-  const { isPending: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
-    mutationKey: ["cabins"],
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      toast.success("Cabin deleted successfully");
-    },
-    // * the error passed here is the one thrown using mutation function
-    onError: (e) => {
-      toast.error(e.message);
-    },
-  });
 
   return (
     <>
@@ -73,7 +57,11 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
         <Cabin>{name}</Cabin>
         <div>fits up to {maxCapacity} guests</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        <Discount>{formatCurrency(discount)}</Discount>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
         <div>
           <button
             onClick={() => setShowOpenForm((open) => !open)}
@@ -81,7 +69,7 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
           >
             Edit
           </button>
-          <button onClick={() => mutate(id)} disabled={isDeleting}>
+          <button onClick={() => deleteCabin(id)} disabled={isDeleting}>
             delete
           </button>
         </div>
