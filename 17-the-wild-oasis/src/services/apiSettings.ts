@@ -15,7 +15,7 @@ export async function getSettings(): Promise<Settings> {
 }
 
 // We expect a newSetting object that looks like {setting: newValue}
-export async function updateSetting(newSetting: Settings) {
+export async function updateSetting(newSetting: { [field: string]: number }) {
   const { data, error } = await supabase
     .from("settings")
     .update(newSetting)
