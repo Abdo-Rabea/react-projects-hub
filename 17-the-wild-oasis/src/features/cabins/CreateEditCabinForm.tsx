@@ -11,7 +11,13 @@ import type { Cabin } from "../../types/cabin";
 import type { FromCabin } from "../../types/FormCabin";
 import { useCreateEditCabin } from "./useCreateEditCabin";
 
-function CreateEditCabinForm({ cabin }: { cabin?: Cabin }) {
+function CreateEditCabinForm({
+  cabin,
+  onCloseModal,
+}: {
+  cabin?: Cabin;
+  onCloseModal?: () => void;
+}) {
   const isEditSession = !!cabin;
   const {
     register,
@@ -46,7 +52,12 @@ function CreateEditCabinForm({ cabin }: { cabin?: Cabin }) {
     } else
       createEditCabin(
         { data: { ...data, image: data.image[0] } },
-        { onSuccess: () => reset() }
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
       );
   }
 
@@ -56,7 +67,10 @@ function CreateEditCabinForm({ cabin }: { cabin?: Cabin }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label="cabin name" errorMessage={errors.name?.message}>
         <Input
           type="text"
@@ -146,7 +160,12 @@ function CreateEditCabinForm({ cabin }: { cabin?: Cabin }) {
 
       <FormRow>
         <>
-          <Button disabled={isWorking} $variations="secondary" type="reset">
+          <Button
+            disabled={isWorking}
+            $variations="secondary"
+            type="reset"
+            onClick={() => onCloseModal?.()}
+          >
             Cancel
           </Button>
           <Button disabled={isWorking}>

@@ -15,6 +15,16 @@ createRoot(document.getElementById("root")!).render(
  * 3. using supabase: handle global remote state
  * 4. i am creating a fullstack application using react and supabase (wow)
  * 5. react-hook-form to handle form and form validation
+ * 6. Learn react patterns
+ *  1. render-props-pattern
+ *  2. higher order component to enhance uneditable component
+ *  3. compound component
+ * react-render-props&HOC-patterns examples:https://codesandbox.io/p/devbox/react-render-props-starter-forked-t6ldmf?workspaceId=ws_3NBMZ7KK8AnpBAeUSmFiZZ
+ * compound component example:
+ * react-compound-components-pattern sandbox example: https://codesandbox.io/p/sandbox/react-compound-components-final-igzh7c
+ * 7. building a highly reusable modal using react-compound-component
+ *    - create the modal with react portal (portal is very usefull for elements that we want them to be above all other elements such as tooltips, modal and menus)
+ *    - you are using portal to move the modal in the dom tree because the user of the modal can cut it when putting it in parent that is overflow: hidden , so to avoid confilcts with css pro
  */
 
 /**

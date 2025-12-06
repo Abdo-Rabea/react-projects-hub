@@ -2,8 +2,7 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 import CabinTable from "../features/cabins/CabinTable";
-import CreateEditCabinForm from "../features/cabins/CreateEditCabinForm";
-import Button from "../ui/Button";
+import AddCabin from "../features/cabins/AddCabin";
 
 function Cabins() {
   return (
@@ -16,8 +15,7 @@ function Cabins() {
         <CabinTable />
       </Row>
       <Row>
-        <Button>create new cabin</Button>
-        <CreateEditCabinForm />
+        <AddCabin />
       </Row>
     </>
   );
