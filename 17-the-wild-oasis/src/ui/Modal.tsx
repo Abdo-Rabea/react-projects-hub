@@ -1,4 +1,10 @@
-import type { ReactElement } from "react";
+import React, {
+  cloneElement,
+  createContext,
+  useContext,
+  useState,
+  type ReactNode,
+} from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
@@ -51,25 +57,68 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
+// 1. create the context
+const ModalContext = createContext<{
+  open: (_name: string) => void;
+  close: () => void;
+  openWindowName: string;
+}>({
+  open: () => {},
+  close: () => {},
+  openWindowName: "",
+});
 
-function Modal({
+function Modal({ children }: { children: ReactNode }) {
+  const [openWindowName, setOpenWindowName] = useState<string>("");
+  const open = setOpenWindowName;
+  function close() {
+    setOpenWindowName("");
+  }
+  return (
+    <ModalContext value={{ openWindowName, open, close }}>
+      {children}
+    </ModalContext>
+  );
+}
+
+type AnyProps = Record<string, unknown>;
+
+function Open({
   children,
-  onClose,
+  opens: windowName,
 }: {
-  children: ReactElement;
-  onClose: () => void;
+  children: React.ReactElement<AnyProps>;
+  opens: string;
 }) {
+  const { open } = useContext(ModalContext);
+
+  return cloneElement(children, { onClick: () => open(windowName) });
+}
+
+function Window({
+  children,
+  name: windowName,
+}: {
+  children: React.ReactElement<AnyProps>;
+  name: string;
+}) {
+  const { openWindowName, close } = useContext(ModalContext);
+
+  if (openWindowName !== windowName) return null;
   return createPortal(
     <Overlay>
       <StyledModal>
-        <Button onClick={onClose}>
+        <Button onClick={close}>
           <HiXMark />
         </Button>
-        <div>{children}</div>
+        <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
     </Overlay>,
     document.body
   );
 }
+
+Modal.Open = Open;
+Modal.Window = Window;
 
 export default Modal;
