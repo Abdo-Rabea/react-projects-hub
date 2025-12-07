@@ -7,6 +7,8 @@ import { useDeleteCabin } from "./useDeleteCabin";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import { useCreateEditCabin } from "./useCreateEditCabin";
 import type { CabinPayload } from "../../types/FormCabin";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const TableRow = styled.div`
   display: grid;
@@ -67,34 +69,49 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
     createCabin({ data: duplicatedCabin });
   }
   return (
-    <>
-      <TableRow>
-        <Img src={image || "/cabin-placeholder.png"} alt={String(cabin.name)} />
-        <Cabin>{name}</Cabin>
-        <div>fits up to {maxCapacity} guests</div>
-        <Price>{formatCurrency(regularPrice)}</Price>
-        {discount ? (
-          <Discount>{formatCurrency(discount)}</Discount>
-        ) : (
-          <span>&mdash;</span>
-        )}
-        <div>
-          <button onClick={handleDuplicateCabin} disabled={isWorking}>
-            <HiSquare2Stack />
-          </button>
-          <button
-            onClick={() => setShowOpenForm((open) => !open)}
-            disabled={isDeleting}
-          >
-            <HiPencil />
-          </button>
-          <button onClick={() => deleteCabin(id)} disabled={isDeleting}>
-            <HiTrash />
-          </button>
-        </div>
-      </TableRow>
-      {showEditForm && <CreateEditCabinForm cabin={cabin} />}
-    </>
+    <TableRow>
+      <Img src={image || "/cabin-placeholder.png"} alt={String(cabin.name)} />
+      <Cabin>{name}</Cabin>
+      <div>fits up to {maxCapacity} guests</div>
+      <Price>{formatCurrency(regularPrice)}</Price>
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
+      <div>
+        <button onClick={handleDuplicateCabin} disabled={isWorking}>
+          <HiSquare2Stack />
+        </button>
+        <Modal>
+          <Modal.Open opens="edit-cabin">
+            <button
+              onClick={() => setShowOpenForm((open) => !open)}
+              disabled={isDeleting}
+            >
+              <HiPencil />
+            </button>
+          </Modal.Open>
+          <Modal.Open opens="confirm-delete">
+            <button>
+              <HiTrash />
+            </button>
+          </Modal.Open>
+
+          <Modal.Window name="edit-cabin">
+            <CreateEditCabinForm cabin={cabin} />
+          </Modal.Window>
+
+          <Modal.Window name="confirm-delete">
+            <ConfirmDelete
+              resourceName="Cabin"
+              disabled={isDeleting}
+              onConfirm={() => deleteCabin(id)}
+            />
+          </Modal.Window>
+        </Modal>
+      </div>
+    </TableRow>
   );
 }
 

@@ -47,7 +47,12 @@ function CreateEditCabinForm({
           },
           id: cabin?.id,
         },
-        { onSuccess: () => reset() }
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
       );
     } else
       createEditCabin(
