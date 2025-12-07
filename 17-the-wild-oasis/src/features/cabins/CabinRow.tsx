@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import type { Cabin } from "../../types/cabin";
 import { formatCurrency } from "../../utils/helpers";
-import { useState } from "react";
 import CreateEditCabinForm from "./CreateEditCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
@@ -9,18 +8,7 @@ import { useCreateEditCabin } from "./useCreateEditCabin";
 import type { CabinPayload } from "../../types/FormCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
-
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
+import Table from "../../ui/Table";
 
 const Img = styled.img`
   display: block;
@@ -31,7 +19,7 @@ const Img = styled.img`
   transform: scale(1.5) translateX(-7px);
 `;
 
-const Cabin = styled.div`
+const CabinName = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
@@ -50,7 +38,6 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabin }: { cabin: Cabin }) {
-  const [showEditForm, setShowOpenForm] = useState<boolean>(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { createEditCabin: createCabin, isWorking } = useCreateEditCabin();
 
@@ -69,9 +56,9 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
     createCabin({ data: duplicatedCabin });
   }
   return (
-    <TableRow>
+    <Table.Row>
       <Img src={image || "/cabin-placeholder.png"} alt={String(cabin.name)} />
-      <Cabin>{name}</Cabin>
+      <CabinName>{name}</CabinName>
       <div>fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       {discount ? (
@@ -85,10 +72,7 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
         </button>
         <Modal>
           <Modal.Open opens="edit-cabin">
-            <button
-              onClick={() => setShowOpenForm((open) => !open)}
-              disabled={isDeleting}
-            >
+            <button>
               <HiPencil />
             </button>
           </Modal.Open>
@@ -111,7 +95,7 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
           </Modal.Window>
         </Modal>
       </div>
-    </TableRow>
+    </Table.Row>
   );
 }
 
