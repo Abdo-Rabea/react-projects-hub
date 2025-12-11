@@ -1,9 +1,20 @@
+import {
+  createContext,
+  useContext,
+  useState,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 import styled from "styled-components";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
-const StyledMenu = styled.div`
+const Menu = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: relative;
+  width: 32px;
+  right: 0;
 `;
 
 const StyledToggle = styled.button`
@@ -26,15 +37,20 @@ const StyledToggle = styled.button`
 `;
 
 const StyledList = styled.ul`
-  position: fixed;
-
+  position: absolute;
+  /* position: absolute; */
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
-
-  right: ${(props) => props.position.x}px;
-  top: ${(props) => props.position.y}px;
+  top: 6px;
+  right: -11px;
+  /* left: 0; */
+  z-index: 1000;
 `;
+// right: ${(props) => props?.position?.right}px;
+// top: ${(props) => props?.position?.top}px;
+//
+//
 
 const StyledButton = styled.button`
   width: 100%;
@@ -60,3 +76,84 @@ const StyledButton = styled.button`
     transition: all 0.3s;
   }
 `;
+
+type MenusContextType = {
+  openId: number | null;
+  closeMenu: () => void;
+  openMenu: (id: number | null) => void;
+};
+const MenusContext = createContext<MenusContextType>({
+  openId: null,
+  closeMenu: () => {},
+  openMenu: () => {},
+});
+// * only one menu is opened at a time
+function Menus({ children }: { children: ReactNode }) {
+  const [openId, setOpenId] = useState<number | null>(null);
+
+  const closeMenu = () => setOpenId(null);
+  const openMenu = setOpenId;
+  return (
+    <MenusContext value={{ openId, closeMenu, openMenu }}>
+      {children}
+    </MenusContext>
+  );
+}
+
+function Toggle({ icon, id }: { icon: ReactElement; id: number }) {
+  const { closeMenu, openMenu, openId } = useContext(MenusContext);
+
+  // function setListRenderPosition(e) {
+  //   const btn: HTMLElement = e.target.closest("button");
+  //   const { right, top, width, height } = btn.getClientRects()[0];
+  //   const listTop = top + height + 5;
+  //   const listRight = window.innerWidth - right;
+  //   setListPosition({ right: listRight, top: listTop });
+  // }
+  function handleToggleMenu(e: React.MouseEvent) {
+    e.stopPropagation();
+    if (openId === id) closeMenu();
+    else openMenu(id);
+  }
+  return <StyledToggle onClick={handleToggleMenu}>{icon}</StyledToggle>;
+}
+
+function List({ children, id }: { children: ReactNode; id: number }) {
+  const { openId, closeMenu } = useContext(MenusContext);
+  const { ref } = useOutsideClick<HTMLUListElement>(closeMenu, false);
+  // console.log(listPosition);
+  if (openId !== id) return null;
+
+  return <StyledList ref={ref}>{children}</StyledList>;
+}
+
+function Button({
+  children,
+  icon,
+  onClick,
+}: {
+  children: ReactNode;
+  icon: ReactElement;
+  onClick?: () => void;
+}) {
+  const { closeMenu } = useContext(MenusContext);
+
+  function handleClick() {
+    onClick?.();
+    closeMenu();
+  }
+  return (
+    <li>
+      <StyledButton onClick={handleClick}>
+        {icon}
+        <span>{children}</span>
+      </StyledButton>
+    </li>
+  );
+}
+Menus.Menu = Menu;
+Menus.Toggle = Toggle;
+Menus.List = List;
+Menus.Button = Button;
+
+export default Menus;

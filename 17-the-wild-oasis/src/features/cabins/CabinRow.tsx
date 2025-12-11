@@ -9,6 +9,8 @@ import type { CabinPayload } from "../../types/FormCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 
 const Img = styled.img`
   display: block;
@@ -39,7 +41,7 @@ const Discount = styled.div`
 
 function CabinRow({ cabin }: { cabin: Cabin }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
-  const { createEditCabin: createCabin, isWorking } = useCreateEditCabin();
+  const { createEditCabin: createCabin } = useCreateEditCabin();
 
   const { id, image, name, maxCapacity, regularPrice, discount, description } =
     cabin;
@@ -67,20 +69,27 @@ function CabinRow({ cabin }: { cabin: Cabin }) {
         <span>&mdash;</span>
       )}
       <div>
-        <button onClick={handleDuplicateCabin} disabled={isWorking}>
-          <HiSquare2Stack />
-        </button>
+        {/* don't bather yourself alot as most the component here only returns the same children with only adding some functionalities */}
         <Modal>
-          <Modal.Open opens="edit-cabin">
-            <button>
-              <HiPencil />
-            </button>
-          </Modal.Open>
-          <Modal.Open opens="confirm-delete">
-            <button>
-              <HiTrash />
-            </button>
-          </Modal.Open>
+          <Menus.Toggle icon={<HiOutlineDotsVertical />} id={id} />
+          <Menus.Menu>
+            <Menus.List id={id}>
+              <Menus.Button
+                icon={<HiSquare2Stack />}
+                onClick={handleDuplicateCabin}
+              >
+                duplicate
+              </Menus.Button>
+
+              <Modal.Open opens="edit-cabin">
+                <Menus.Button icon={<HiPencil />}>edit</Menus.Button>
+              </Modal.Open>
+
+              <Modal.Open opens="confirm-delete">
+                <Menus.Button icon={<HiTrash />}>delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+          </Menus.Menu>
 
           <Modal.Window name="edit-cabin">
             <CreateEditCabinForm cabin={cabin} />

@@ -104,7 +104,7 @@ function Window({
   name: string;
 }) {
   const { openWindowName, close } = useContext(ModalContext);
-  const { ref } = useOutsideClick(close, true);
+  const { ref } = useOutsideClick<HTMLDivElement>(close, true);
   if (openWindowName !== windowName) return null;
   return createPortal(
     <Overlay>
