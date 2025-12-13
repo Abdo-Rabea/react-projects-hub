@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const StyledFilter = styled.div`
@@ -10,12 +12,12 @@ const StyledFilter = styled.div`
   gap: 0.4rem;
 `;
 
-const FilterButton = styled.button`
+const FilterButton = styled.button<{ $active: boolean }>`
   background-color: var(--color-grey-0);
   border: none;
 
   ${(props) =>
-    props.active &&
+    props.$active &&
     css`
       background-color: var(--color-brand-600);
       color: var(--color-brand-50);
@@ -33,3 +35,49 @@ const FilterButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+// onClick on each button -> set the search params discount
+interface Option {
+  value: string;
+  label: string;
+}
+
+export function Filter({
+  filterField,
+  options,
+}: {
+  filterField: string;
+  options: Option[];
+}) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const selectedFilterValue = searchParams.get(filterField);
+
+  // set the value of to first opetion by default but this navigation should happens after first render
+  useEffect(
+    function () {
+      if (selectedFilterValue === null)
+        setSearchParams({ [filterField]: options[0].value });
+    },
+    [filterField, options, selectedFilterValue, setSearchParams]
+  );
+
+  function handleSetSearchParams(value: string) {
+    setSearchParams({ [filterField]: value });
+  }
+  return (
+    <StyledFilter>
+      {options.map((option) => (
+        <FilterButton
+          key={option.value}
+          onClick={() => handleSetSearchParams(option.value)}
+          $active={option.value === selectedFilterValue}
+        >
+          {option.label}
+        </FilterButton>
+      ))}
+    </StyledFilter>
+  );
+}
+
+export default Filter;
