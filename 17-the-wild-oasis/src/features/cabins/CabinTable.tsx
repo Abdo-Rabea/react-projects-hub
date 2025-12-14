@@ -5,7 +5,8 @@ import { useCabins } from "./useCabins";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
-
+type SortableField = keyof Pick<Cabin, "name" | "regularPrice" | "maxCapacity">;
+type SortDirection = "asc" | "desc";
 function CabinTable() {
   const { cabins, isPending, isError, error } = useCabins();
   const [searchParams] = useSearchParams();
@@ -21,6 +22,33 @@ function CabinTable() {
     filterCabins = cabins?.filter((cabin) => cabin.discount > 0);
   else filterCabins = cabins?.filter((cabin) => cabin.discount === 0);
 
+  // 2) sorting
+  const sortField: string = searchParams.get("sortBy") || "name-asc";
+
+  const [rawSortBy, rawDirection] = sortField.split("-");
+  const direction: SortDirection = rawDirection === "desc" ? "desc" : "asc";
+
+  const sortBy: SortableField =
+    rawSortBy === "regularPrice" || rawSortBy === "maxCapacity"
+      ? rawSortBy
+      : "name";
+
+  const sign = direction === "asc" ? 1 : -1;
+
+  filterCabins?.sort((a, b) =>
+    sortBy === "name"
+      ? a.name.localeCompare(b.name) * sign
+      : (a[sortBy] - b[sortBy]) * sign
+  );
+  /*
+  * from my point of view this is the best solution of types and compare function all together for every field
+  const comparators = {
+    name: (a: Cabin, b: Cabin) => a.name.localeCompare(b.name),
+    price: (a: Cabin, b: Cabin) => a.price - b.price,
+    capacity: (a: Cabin, b: Cabin) => a.capacity - b.capacity,
+  } satisfies Record<string, (a: Cabin, b: Cabin) => number>;
+  
+*/
   return (
     <Menus>
       <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">

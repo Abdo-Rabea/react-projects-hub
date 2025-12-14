@@ -28,6 +28,9 @@ createRoot(document.getElementById("root")!).render(
  *  - convert the normal modal into high reusable modal using compound component pattern
  *  - detecting outside click of the modal to close it (dealing with js capture and bubbling phases)
  *  - create a highly reusable and custome table using compound component pattern and render-props pattern
+ *  - create highly reusable and custom context menu to compose all the functionality of edit-duuplicate and delete cabins it (also integrate it with the modal)
+ * client-side data filtering
+ * client-side data sorting
  */
 
 /**
