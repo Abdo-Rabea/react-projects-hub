@@ -3,14 +3,14 @@ import Row from "../ui/Row";
 
 import CabinTable from "../features/cabins/CabinTable";
 import AddCabin from "../features/cabins/AddCabin";
-import CabinsFilterOperations from "../features/cabins/CabinsFilterOperations";
+import CabinsTableOperations from "../features/cabins/CabinsTableOperations";
 
 function Cabins() {
   return (
     <>
       <Row $type="horizontal">
         <Heading as="h1">All cabins</Heading>
-        <CabinsFilterOperations />
+        <CabinsTableOperations />
       </Row>
       <Row>
         <CabinTable />
