@@ -54,16 +54,21 @@ export function Filter({
   const selectedFilterValue = searchParams.get(filterField);
 
   // set the value of to first opetion by default but this navigation should happens after first render
+  // it is good here but not for the sorting
   useEffect(
     function () {
-      if (selectedFilterValue === null)
-        setSearchParams({ [filterField]: options[0].value });
+      if (selectedFilterValue === null) {
+        searchParams.set(filterField, options[0].value);
+        setSearchParams(searchParams);
+      }
     },
-    [filterField, options, selectedFilterValue, setSearchParams]
+    [filterField, options, searchParams, selectedFilterValue, setSearchParams]
   );
 
   function handleSetSearchParams(value: string) {
-    setSearchParams({ [filterField]: value });
+    searchParams.set(filterField, value);
+    setSearchParams(searchParams);
+    // setSearchParams({ [filterField]: value });
   }
   return (
     <StyledFilter>
@@ -72,6 +77,7 @@ export function Filter({
           key={option.value}
           onClick={() => handleSetSearchParams(option.value)}
           $active={option.value === selectedFilterValue}
+          disabled={option.value === selectedFilterValue}
         >
           {option.label}
         </FilterButton>
