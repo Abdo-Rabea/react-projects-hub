@@ -6,6 +6,7 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import type { BookingWithRelations } from "../../types/Booking";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -34,8 +35,8 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
-function BookingRow({
-  booking: {
+function BookingRow({ booking }: { booking: BookingWithRelations }) {
+  const {
     id: bookingId,
     created_at,
     startDate,
@@ -44,10 +45,14 @@ function BookingRow({
     numGuests,
     totalPrice,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
-  },
-}) {
+    guests,
+    cabins,
+  } = booking;
+
+  const guestName = guests?.fullName ?? "—";
+  const email = guests?.email ?? "—";
+  const cabinName = cabins?.name ?? "—";
+
   const statusToTagName = {
     unconfirmed: "blue",
     "checked-in": "green",
@@ -76,7 +81,7 @@ function BookingRow({
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Tag $type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
     </Table.Row>

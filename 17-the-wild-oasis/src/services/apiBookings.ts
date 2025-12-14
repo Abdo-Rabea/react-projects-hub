@@ -1,6 +1,17 @@
+import type { BookingWithRelations } from "../types/Booking";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
+export async function getBookings(): Promise<BookingWithRelations[]> {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, cabins(name), guests(fullName, email)");
+  if (error) {
+    console.log("apiBookings", error);
+    throw new Error("There was an error getting your bookings");
+  }
+  return data;
+}
 export async function getBooking(id: string) {
   const { data, error } = await supabase
     .from("bookings")
