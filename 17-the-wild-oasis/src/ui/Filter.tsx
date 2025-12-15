@@ -67,6 +67,7 @@ export function Filter({
 
   function handleSetSearchParams(value: string) {
     searchParams.set(filterField, value);
+    searchParams.set("page", "1");
     setSearchParams(searchParams);
     // setSearchParams({ [filterField]: value });
   }

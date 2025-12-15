@@ -6,13 +6,15 @@ import supabase from "./supabase";
 export async function getBookings({
   filter,
   sortBy,
+  paginationRange,
 }: {
   filter?: BookingFilter | null;
   sortBy?: { field: string; direction: string };
-}): Promise<BookingWithRelations[]> {
+  paginationRange: { rangeStart: number; rangeEnd: number };
+}): Promise<{ data: BookingWithRelations[]; count: number | null }> {
   const query = supabase
     .from("bookings")
-    .select("*, cabins(name), guests(fullName, email)");
+    .select("*, cabins(name), guests(fullName, email)", { count: "exact" });
 
   // 1) filter
   if (filter) query[filter.method](filter.field, filter.value);
@@ -20,12 +22,14 @@ export async function getBookings({
   if (sortBy)
     query.order(sortBy.field, { ascending: sortBy.direction === "asc" });
 
-  const { data, error } = await query;
+  query.range(paginationRange.rangeStart - 1, paginationRange.rangeEnd - 1);
+
+  const { data, error, count } = await query;
   if (error) {
     console.log("apiBookings", error);
     throw new Error("There was an error getting your bookings");
   }
-  return data;
+  return { data, count };
 }
 export async function getBooking(id: string) {
   const { data, error } = await supabase

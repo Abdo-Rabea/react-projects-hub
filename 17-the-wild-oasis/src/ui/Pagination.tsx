@@ -62,10 +62,16 @@ const PaginationButton = styled.button<{ $active?: boolean }>`
 // read and modify the current page state in the url
 function Pagination({ count }: { count: number }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { rangeStart, rangeEnd, currentPage, isFirstPage, isLastPage } =
-    usePaginationData({
-      count,
-    });
+  const {
+    rangeStart,
+    rangeEnd,
+    currentPage,
+    isFirstPage,
+    isLastPage,
+    totalPages,
+  } = usePaginationData({
+    count,
+  });
 
   function handlePrevious() {
     const previous: number = isFirstPage ? currentPage : currentPage - 1;
@@ -78,11 +84,13 @@ function Pagination({ count }: { count: number }) {
     searchParams.set("page", String(next));
     setSearchParams(searchParams);
   }
+
+  if (totalPages === 1) return null;
   return (
     <StyledPagination>
       <P>
-        showing <span>{rangeStart}</span> to <span> {rangeEnd}</span> of
-        <span>{count}</span>
+        Showing <span>{rangeStart}</span> to <span> {rangeEnd} </span> of{" "}
+        <span>{count}</span> results
       </P>
       <Buttons>
         <PaginationButton onClick={handlePrevious} disabled={isFirstPage}>
