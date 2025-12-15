@@ -1,11 +1,26 @@
 import type { BookingWithRelations } from "../types/Booking";
+import type { BookingFilter } from "../types/filters";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
-export async function getBookings(): Promise<BookingWithRelations[]> {
-  const { data, error } = await supabase
+export async function getBookings({
+  filter,
+  sortBy,
+}: {
+  filter?: BookingFilter | null;
+  sortBy?: { field: string; direction: string };
+}): Promise<BookingWithRelations[]> {
+  const query = supabase
     .from("bookings")
     .select("*, cabins(name), guests(fullName, email)");
+
+  // 1) filter
+  if (filter) query[filter.method](filter.field, filter.value);
+
+  if (sortBy)
+    query.order(sortBy.field, { ascending: sortBy.direction === "asc" });
+
+  const { data, error } = await query;
   if (error) {
     console.log("apiBookings", error);
     throw new Error("There was an error getting your bookings");
