@@ -1,13 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings } from "../../services/apiBookings";
 import type { BookingWithRelations } from "../../types/Booking";
 import { useSearchParams } from "react-router-dom";
 import type { BookingFilter } from "../../types/filters";
 import { usePaginationData } from "../../hooks/usePaginationData";
+import { calcPaginationData } from "../../utils/helpers";
+import { PAGE_SIZE } from "../../utils/constants";
 
 export function useBookings() {
   const [searchParams] = useSearchParams();
-  const { rangeStart, rangeEnd } = usePaginationData({
+  const queryClient = useQueryClient();
+  const { rangeStart, rangeEnd, currentPage } = usePaginationData({
     count: Number.MAX_SAFE_INTEGER,
   });
   // 1) filter
@@ -38,6 +41,51 @@ export function useBookings() {
     queryFn: () => getBookings({ filter, sortBy, paginationRange }),
   });
 
+  // * pre-fetching next page
+  // prefetch only of you are on in the last page
+  if (currentPage < Math.ceil((count || Number.MAX_SAFE_INTEGER) / PAGE_SIZE)) {
+    console.log(
+      currentPage,
+      count,
+      Math.ceil((count || Number.MAX_SAFE_INTEGER) / PAGE_SIZE)
+    );
+    const { rangeStart: nextRangeStart, rangeEnd: nextRangeEnd } =
+      calcPaginationData(currentPage + 1, Number.MAX_SAFE_INTEGER);
+
+    const nextPaginationRange = {
+      rangeStart: nextRangeStart,
+      rangeEnd: nextRangeEnd,
+    };
+    queryClient.prefetchQuery({
+      queryKey: ["bookings", filter, sortBy, nextPaginationRange],
+      queryFn: () =>
+        getBookings({
+          filter,
+          sortBy,
+          paginationRange: nextPaginationRange,
+        }),
+    });
+  }
+
+  // * prefetching previous page
+  if (currentPage > 1) {
+    const { rangeStart: prevRangeStart, rangeEnd: prevRangeEnd } =
+      calcPaginationData(currentPage - 1, Number.MAX_SAFE_INTEGER);
+
+    const prevPaginationRange = {
+      rangeStart: prevRangeStart,
+      rangeEnd: prevRangeEnd,
+    };
+    queryClient.prefetchQuery({
+      queryKey: ["bookings", filter, sortBy, prevPaginationRange],
+      queryFn: () =>
+        getBookings({
+          filter,
+          sortBy,
+          paginationRange: prevPaginationRange,
+        }),
+    });
+  }
   return {
     count,
     bookings,

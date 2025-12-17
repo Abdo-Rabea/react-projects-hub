@@ -1,4 +1,5 @@
 import { formatDistance, parseISO, differenceInDays } from "date-fns";
+import { PAGE_SIZE } from "./constants";
 
 // We want to make this function work for both Date objects and strings (which come from Supabase)
 export const subtractDates = (dateStr1: string, dateStr2: string) =>
@@ -27,3 +28,23 @@ export const formatCurrency = (value: number) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "USD" }).format(
     value
   );
+
+export function calcPaginationData(currentPage: number, count: number) {
+  const totalPages: number = Math.ceil(count / PAGE_SIZE);
+  if (currentPage > totalPages || currentPage <= 0)
+    throw new Error("pagination out of range");
+
+  const rangeStart: number = (currentPage - 1) * PAGE_SIZE + 1;
+  const rangeEnd: number = Math.min(PAGE_SIZE * currentPage, count);
+
+  const isFirstPage: boolean = currentPage === 1;
+  const isLastPage: boolean = currentPage === totalPages;
+  return {
+    currentPage,
+    rangeStart,
+    rangeEnd,
+    totalPages,
+    isFirstPage,
+    isLastPage,
+  };
+}
