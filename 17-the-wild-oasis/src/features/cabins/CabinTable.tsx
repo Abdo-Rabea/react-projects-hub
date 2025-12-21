@@ -6,6 +6,7 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
+import ErrorMessage from "../../ui/ErrorMessage";
 type SortableField = keyof Pick<Cabin, "name" | "regularPrice" | "maxCapacity">;
 type SortDirection = "asc" | "desc";
 function CabinTable() {
@@ -13,7 +14,7 @@ function CabinTable() {
   const [searchParams] = useSearchParams();
 
   if (isPending) return <Spinner />;
-  if (isError) return <div>{error?.message}</div>;
+  if (isError) return <ErrorMessage message={error?.message} />;
 
   // cabin filtering all - with-discount - no-discount
   const filterValue: string = searchParams.get("discount") || "all";
