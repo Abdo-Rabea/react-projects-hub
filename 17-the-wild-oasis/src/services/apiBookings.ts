@@ -1,4 +1,4 @@
-import type { BookingWithRelations } from "../types/Booking";
+import type { Booking, BookingWithRelations } from "../types/Booking";
 import type { BookingFilter } from "../types/filters";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
@@ -31,7 +31,7 @@ export async function getBookings({
   }
   return { data, count };
 }
-export async function getBooking(id: string) {
+export async function getBooking(id: number): Promise<BookingWithRelations> {
   const { data, error } = await supabase
     .from("bookings")
     .select("*, cabins(*), guests(*)")

@@ -46,6 +46,7 @@ const StyledList = styled.ul`
   right: -11px;
   /* left: 0; */
   z-index: 1000;
+  width: max-content;
 `;
 // right: ${(props) => props?.position?.right}px;
 // top: ${(props) => props?.position?.top}px;

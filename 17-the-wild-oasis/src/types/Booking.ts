@@ -8,6 +8,9 @@ export type Booking = {
   cabinPrice: number;
   extrasPrice: number;
   totalPrice: number;
+  hasBreakfast: boolean;
+  observations: string;
+  isPaid: boolean;
   status: "unconfirmed" | "checked-in" | "checked-out";
   cabinId: number;
   guestId: number;
@@ -20,6 +23,9 @@ type CabinRef = {
 type GuestRef = {
   fullName: string;
   email: string;
+  country: string;
+  countryFlag: string;
+  nationalID: string;
 };
 
 export type BookingWithRelations = Booking & {
