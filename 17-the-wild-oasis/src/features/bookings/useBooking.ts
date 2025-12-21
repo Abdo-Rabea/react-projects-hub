@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getBooking } from "../../services/apiBookings";
-import type { Booking, BookingWithRelations } from "../../types/Booking";
+import type { BookingWithRelations } from "../../types/Booking";
 import { useParams } from "react-router-dom";
 
 export function useBooking() {

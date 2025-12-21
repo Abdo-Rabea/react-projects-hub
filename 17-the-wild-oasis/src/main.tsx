@@ -31,7 +31,9 @@ createRoot(document.getElementById("root")!).render(
  *  - create highly reusable and custom context menu to compose all the functionality of edit-duuplicate and delete cabins it (also integrate it with the modal)
  * client-side data filtering
  * client-side data sorting
- * server-side sorting and filtering using supabase with react-query and custom reusable filter and sorting component with storing the filter and sorting states in the url for sharable
+ * server-side sorting and filtering using supabase with
+ *
+ * react-query and custom reusable filter and sorting component with storing the filter and sorting states in the url for sharable
  */
 
 /**

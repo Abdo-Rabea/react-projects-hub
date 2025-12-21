@@ -8,8 +8,8 @@ import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import type { BookingWithRelations } from "../../types/Booking";
 import Menus from "../../ui/Menus";
-import { HiDotsVertical } from "react-icons/hi";
-import { HiEye } from "react-icons/hi2";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
@@ -89,7 +89,7 @@ function BookingRow({ booking }: { booking: BookingWithRelations }) {
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
       <div>
-        <Menus.Toggle icon={<HiDotsVertical />} id={bookingId} />
+        <Menus.Toggle icon={<HiOutlineDotsVertical />} id={bookingId} />
         <Menus.Menu>
           <Menus.List id={bookingId}>
             <Menus.Button
@@ -98,6 +98,14 @@ function BookingRow({ booking }: { booking: BookingWithRelations }) {
             >
               See deitals
             </Menus.Button>
+            {status === "unconfirmed" && (
+              <Menus.Button
+                icon={<HiArrowDownOnSquare />}
+                onClick={() => navigate(`/checkin/${bookingId}`)}
+              >
+                Check in
+              </Menus.Button>
+            )}
           </Menus.List>
         </Menus.Menu>
       </div>
