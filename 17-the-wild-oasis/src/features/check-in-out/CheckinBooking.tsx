@@ -32,7 +32,7 @@ function CheckinBooking() {
   // for addbreakfast i will not render it unless user actually doesn't have breakfast (so false it is consistance)
   const [addBreakfast, setAddBreakfast] = useState<boolean>(false);
   const { checkin, isCheckingIn } = useCheckin();
-  const { booking, isError, isPending, isFetching, error } = useBooking();
+  const { booking, isError, isPending, isFetching } = useBooking();
   const {
     isPending: isLoadingSettings,
     error: isSettingError,

@@ -14,6 +14,9 @@ import Spinner from "../../ui/Spinner";
 import ErrorMessage from "../../ui/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/useCheckout";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { useDeleteBooking } from "./useDeleteBooking";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -25,6 +28,7 @@ function BookingDetail() {
   const navigate = useNavigate();
   const { booking, isError, isPending, isFetching, error } = useBooking();
   const { checkout, isCheckingOut } = useCheckout();
+  const { deleteBooking, isDeleting } = useDeleteBooking();
 
   const moveBack = useMoveBack();
 
@@ -63,6 +67,22 @@ function BookingDetail() {
             Check out
           </Button>
         )}
+        <Modal>
+          <Modal.Open opens="delete">
+            <Button $variations="danger">Delete booking</Button>
+          </Modal.Open>
+
+          {/* *should be outside context because context will be closed when i click the button so it will close all its children including modal */}
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              resourceName={`booking #${bookingId}`}
+              disabled={isDeleting}
+              onConfirm={() =>
+                deleteBooking(bookingId, { onSettled: () => navigate(-1) })
+              }
+            />
+          </Modal.Window>
+        </Modal>
         <Button $variations="secondary" onClick={moveBack}>
           Back
         </Button>
