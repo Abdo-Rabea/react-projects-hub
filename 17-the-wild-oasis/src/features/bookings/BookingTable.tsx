@@ -7,8 +7,9 @@ import Empty from "../../ui/Empty";
 import Pagination from "../../ui/Pagination";
 
 function BookingTable() {
-  const { bookings, isPending, isError, error, count } = useBookings();
-  if (isPending) return <Spinner />;
+  const { bookings, isPending, isError, error, count, isFetching } =
+    useBookings();
+  if (isPending || isFetching) return <Spinner />;
   if (isError) return <div>{error?.message}</div>;
 
   if (bookings?.length === 0) return <Empty resourceName="bookings" />;

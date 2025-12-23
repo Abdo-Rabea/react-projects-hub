@@ -13,7 +13,7 @@ export function useBooking() {
     isFetching,
     error,
   } = useQuery<BookingWithRelations>({
-    queryKey: ["booking"],
+    queryKey: ["booking", bookingId],
     queryFn: () => getBooking(Number(bookingId)),
     retry: false,
     refetchOnMount: true,

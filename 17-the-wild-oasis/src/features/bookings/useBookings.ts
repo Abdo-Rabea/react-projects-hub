@@ -35,6 +35,7 @@ export function useBookings() {
     data: { data: bookings, count } = {},
     isPending,
     isError,
+    isFetching,
     error,
   } = useQuery<{ data: BookingWithRelations[]; count: number | null }>({
     queryKey: ["bookings", filter, sortBy, paginationRange],
@@ -85,6 +86,7 @@ export function useBookings() {
     count,
     bookings,
     isPending,
+    isFetching,
     isError,
     error,
   };

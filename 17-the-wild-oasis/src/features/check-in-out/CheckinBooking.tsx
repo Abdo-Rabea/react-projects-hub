@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import Checkbox from "../../ui/Checkbox";
 import { formatCurrency } from "../../utils/helpers";
 import { useCheckin } from "./useCheckin";
+import { useSettings } from "../settings/useSettings";
 
 const Box = styled.div`
   /* Box */
@@ -32,12 +33,18 @@ function CheckinBooking() {
   const [addBreakfast, setAddBreakfast] = useState<boolean>(false);
   const { checkin, isCheckingIn } = useCheckin();
   const { booking, isError, isPending, isFetching, error } = useBooking();
+  const {
+    isPending: isLoadingSettings,
+    error: isSettingError,
+    settings,
+  } = useSettings();
   const isPaid = booking?.isPaid;
 
   useEffect(() => setPaidConfirm(isPaid === true), [isPaid]);
 
-  if (isPending || isFetching) return <Spinner />;
-  if (isError) return <ErrorMessage message={error?.message} />;
+  if (isPending || isFetching || isLoadingSettings) return <Spinner />;
+  if (isError || isSettingError)
+    return <ErrorMessage message={"Can't get checkin user data"} />;
 
   const {
     id: bookingId,
@@ -48,8 +55,9 @@ function CheckinBooking() {
     numGuests,
     numNights,
   } = booking!;
-  // todo: get me from settings
-  const breakfastPrice = 15;
+
+  const breakfastPrice = settings!.breakfastPrice;
+
   const optionalBreakFastPrice = numGuests * numNights * breakfastPrice;
 
   function handleCheckin() {

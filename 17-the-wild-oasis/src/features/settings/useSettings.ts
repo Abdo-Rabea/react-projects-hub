@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSettings } from "../../services/apiSettings";
 
-// todo: get all settings
+// get all settings
 export function useSettings() {
   const {
     data: settings,
