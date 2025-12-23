@@ -8,8 +8,18 @@ export function useCheckin() {
   const navigate = useNavigate();
 
   const { isPending: isCheckingIn, mutate: checkin } = useMutation({
-    mutationFn: (id: number) =>
-      updateBooking(id, { status: "checked-in", isPaid: true }),
+    mutationFn: ({
+      id,
+      breakfast,
+    }: {
+      id: number;
+      breakfast?: {
+        hasBreakfast: boolean;
+        totalPrice: number;
+        extrasPrice: number;
+      };
+    }) =>
+      updateBooking(id, { status: "checked-in", isPaid: true, ...breakfast }),
 
     onSuccess: (data) => {
       toast.success(`Booking #${data.id} successfully checked in`);

@@ -44,11 +44,6 @@ export function useBookings() {
   // * pre-fetching next page
   // prefetch only of you are on in the last page
   if (currentPage < Math.ceil((count || Number.MAX_SAFE_INTEGER) / PAGE_SIZE)) {
-    console.log(
-      currentPage,
-      count,
-      Math.ceil((count || Number.MAX_SAFE_INTEGER) / PAGE_SIZE)
-    );
     const { rangeStart: nextRangeStart, rangeEnd: nextRangeEnd } =
       calcPaginationData(currentPage + 1, Number.MAX_SAFE_INTEGER);
 
