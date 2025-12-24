@@ -12,7 +12,6 @@ import { Flag } from "../../ui/Flag";
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
 import type { BookingWithRelations } from "../../types/Booking";
-import { guests } from "../../data/data-guests";
 
 const StyledBookingDataBox = styled.section`
   /* Box */

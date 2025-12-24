@@ -8,7 +8,6 @@ import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
-import { useNavigate } from "react-router-dom";
 import { useBooking } from "../bookings/useBooking";
 import Spinner from "../../ui/Spinner";
 import ErrorMessage from "../../ui/ErrorMessage";

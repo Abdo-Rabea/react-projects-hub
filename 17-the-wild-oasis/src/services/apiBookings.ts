@@ -1,4 +1,4 @@
-import type { Booking, BookingWithRelations } from "../types/Booking";
+import type { BookingWithRelations } from "../types/Booking";
 import type { BookingFilter } from "../types/filters";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
