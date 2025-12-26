@@ -1,21 +1,32 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical";
 import { useLogin } from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { useUser } from "./useUser";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("rabea@gmail.com");
   const [password, setPassword] = useState("123456");
   const { isLogingIn, login } = useLogin();
+  const { isAuth } = useUser(1);
+
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!email || !password) return;
     login({ email, password });
   }
-
+  // can be done using navigate componet as well
+  useEffect(
+    function () {
+      if (isAuth) navigate("/");
+    },
+    [isAuth, navigate]
+  );
   return (
     <Form onSubmit={handleSubmit}>
       <FormRowVertical label="Email address">

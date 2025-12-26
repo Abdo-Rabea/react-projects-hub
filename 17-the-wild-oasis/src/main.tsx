@@ -34,6 +34,7 @@ createRoot(document.getElementById("root")!).render(
  * server-side sorting and filtering using supabase with
  *
  * react-query and custom reusable filter and sorting component with storing the filter and sorting states in the url for sharable
+ * authorization and authentication"
  */
 
 /**
