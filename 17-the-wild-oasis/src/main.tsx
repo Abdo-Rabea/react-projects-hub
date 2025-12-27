@@ -35,6 +35,8 @@ createRoot(document.getElementById("root")!).render(
  *
  * react-query and custom reusable filter and sorting component with storing the filter and sorting states in the url for sharable
  * authorization and authentication"
+ *  1. login
+ *  2. logout
  */
 
 /**

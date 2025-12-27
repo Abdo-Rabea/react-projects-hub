@@ -13,7 +13,7 @@ function LoginForm() {
   const [email, setEmail] = useState("rabea@gmail.com");
   const [password, setPassword] = useState("123456");
   const { isLogingIn, login } = useLogin();
-  const { isAuth } = useUser(1);
+  const { isAuth } = useUser();
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
