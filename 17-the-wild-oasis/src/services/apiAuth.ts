@@ -17,6 +17,28 @@ export async function login({
   return data;
 }
 
+export async function signUp({
+  email,
+  password,
+  fullName,
+  avatar = "",
+}: {
+  email: string;
+  password: string;
+  fullName: string;
+  avatar?: string;
+}) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { data: { fullName, avatar } },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 export async function getCurrentUser() {
   const {
     data: { user },
