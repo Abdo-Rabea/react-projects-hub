@@ -56,6 +56,7 @@ interface ButtonProps {
 const Button = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
+  justify-content: center;
   column-gap: 3px;
   border: none;
   border-radius: var(--border-radius-sm);
