@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
@@ -7,23 +7,43 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUser } from "./useUser";
+import { useUpdateUser } from "./useUpdateUser";
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
+  const { user } = useUser();
+
   const {
-    user: {
-      email,
-      user_metadata: { fullName: currentFullName },
-    },
-  } = useUser();
+    email,
+    user_metadata: { fullName: currentFullName },
+  } = user!;
+  const [fullName, setFullName] = useState<string>(currentFullName);
+  const [avatar, setAvatar] = useState<File | null>(null);
 
-  const [fullName, setFullName] = useState(currentFullName);
-  const [avatar, setAvatar] = useState(null);
-
-  function handleSubmit(e) {
+  const { isUpdating, updateUser } = useUpdateUser();
+  const isValidSubmit = (avatar || fullName !== currentFullName) && fullName;
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    if (!isValidSubmit) return;
+    updateUser(
+      {
+        fullName: fullName === currentFullName ? undefined : fullName,
+        avatar,
+      },
+      {
+        onSuccess: () => {
+          form.reset();
+          handleCancle();
+        },
+      }
+    );
   }
 
+  function handleCancle() {
+    setFullName(currentFullName);
+    setAvatar(null);
+  }
   return (
     <Form onSubmit={handleSubmit}>
       <FormRow label="Email address">
@@ -35,20 +55,31 @@ function UpdateUserDataForm() {
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           id="fullName"
+          disabled={isUpdating}
         />
       </FormRow>
       <FormRow label="Avatar image">
         <FileInput
           id="avatar"
           accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
+          onChange={(e) => setAvatar(e.target.files?.[0] || null)}
+          disabled={isUpdating}
         />
       </FormRow>
       <FormRow>
-        <Button type="reset" variation="secondary">
-          Cancel
-        </Button>
-        <Button>Update account</Button>
+        <>
+          <Button
+            type="reset"
+            $variations="secondary"
+            onClick={handleCancle}
+            disabled={isUpdating}
+          >
+            Cancel
+          </Button>
+          <Button disabled={!isValidSubmit || isUpdating}>
+            Update account
+          </Button>
+        </>
       </FormRow>
     </Form>
   );
