@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
