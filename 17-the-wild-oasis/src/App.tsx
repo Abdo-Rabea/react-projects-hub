@@ -15,6 +15,7 @@ import { Toaster } from "react-hot-toast";
 import Booking from "./pages/Booking";
 import Checkin from "./pages/Checkin";
 import ProtectedRoute from "./features/authentication/ProtectedRoute";
+import DarkModeProvider from "./contexts/DarkModeContext";
 
 function App() {
   const queryClient = new QueryClient({
@@ -22,7 +23,7 @@ function App() {
     // staleTime: default to 0
   });
   return (
-    <>
+    <DarkModeProvider>
       <GlobalStyles />
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
@@ -65,7 +66,7 @@ function App() {
           }}
         />
       </QueryClientProvider>
-    </>
+    </DarkModeProvider>
   );
 }
 

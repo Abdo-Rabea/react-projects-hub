@@ -37,6 +37,10 @@ createRoot(document.getElementById("root")!).render(
  * authorization and authentication"
  *  1. login
  *  2. logout
+ *  3. sign-up new users with email verification using supabase
+ *
+ * implement dark mode using design tokens
+ *
  */
 
 /**
