@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import { useRecentBookings } from "./useRecentBookings";
+import ErrorMessage from "../../ui/ErrorMessage";
+import Spinner from "../../ui/Spinner";
+import { useRecentStays } from "./useRecentStays";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -8,6 +12,24 @@ const StyledDashboardLayout = styled.div`
 `;
 
 function DashboardLayout() {
+  const {
+    isPendingRecentBookings,
+    recentBookings,
+    isError: isError1,
+    error: error1,
+  } = useRecentBookings();
+
+  const {
+    isPendingRecentStays,
+    recentStays,
+    isError: isError2,
+    error: error2,
+  } = useRecentStays();
+  if (isPendingRecentBookings || isPendingRecentStays) return <Spinner />;
+  if (isError1 || isError2)
+    return <ErrorMessage message={error1?.message || error2?.message} />;
+
+  console.log(recentBookings, recentStays);
   return (
     <StyledDashboardLayout>
       <div>statistics</div>
