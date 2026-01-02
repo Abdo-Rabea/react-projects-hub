@@ -39,7 +39,7 @@ createRoot(document.getElementById("root")!).render(
  *  2. logout
  *  3. sign-up new users with email verification using supabase
  *
- * implement dark mode using design tokens
+ * implement dark mode using design tokens and save mode status in the localStorage
  *
  */
 
