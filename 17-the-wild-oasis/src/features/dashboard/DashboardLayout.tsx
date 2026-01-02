@@ -3,6 +3,8 @@ import { useRecentBookings } from "./useRecentBookings";
 import ErrorMessage from "../../ui/ErrorMessage";
 import Spinner from "../../ui/Spinner";
 import { useRecentStays } from "./useRecentStays";
+import Stats from "./Stats";
+import { useCabins } from "../cabins/useCabins";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -17,6 +19,7 @@ function DashboardLayout() {
     recentBookings,
     isError: isError1,
     error: error1,
+    numDays,
   } = useRecentBookings();
 
   const {
@@ -25,14 +28,32 @@ function DashboardLayout() {
     isError: isError2,
     error: error2,
   } = useRecentStays();
-  if (isPendingRecentBookings || isPendingRecentStays) return <Spinner />;
-  if (isError1 || isError2)
-    return <ErrorMessage message={error1?.message || error2?.message} />;
 
-  console.log(recentBookings, recentStays);
+  // i will useCabins here so that to use it if i need it in other componet (otherwise move it to stats)
+  const {
+    cabins,
+    isPending: isPendingCabins,
+    isError: isError3,
+    error: error3,
+  } = useCabins();
+
+  if (isPendingRecentBookings || isPendingRecentStays || isPendingCabins)
+    return <Spinner />;
+  if (isError1 || isError2 || isError3)
+    return (
+      <ErrorMessage
+        message={error1?.message || error2?.message || error3?.message}
+      />
+    );
+
   return (
     <StyledDashboardLayout>
-      <div>statistics</div>
+      <Stats
+        bookings={recentBookings!}
+        stays={recentStays!}
+        numDays={numDays}
+        cabinsNum={cabins!.length}
+      />
       <div>Today's activity</div>
       <div>Chart stay duration</div>
       <div>Chart sales</div>

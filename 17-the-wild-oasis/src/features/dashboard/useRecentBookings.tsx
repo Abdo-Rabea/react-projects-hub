@@ -22,6 +22,7 @@ export function useRecentBookings() {
   return {
     recentBookings,
     isPendingRecentBookings,
+    numDays,
     isError,
     error,
   };
