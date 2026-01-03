@@ -23,7 +23,6 @@ function Stats({
   numDays: number;
   cabinsNum: number;
 }) {
-  console.log(bookings);
   const numBookings = bookings.length;
 
   // 2. calc. sales

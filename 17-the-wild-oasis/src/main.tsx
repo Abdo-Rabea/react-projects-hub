@@ -40,7 +40,7 @@ createRoot(document.getElementById("root")!).render(
  *  3. sign-up new users with email verification using supabase
  *
  * implement dark mode using design tokens and save mode status in the localStorage
- *
+ * implement dashboard with amazing chart visulization and statistics and quick actions
  */
 
 /**
