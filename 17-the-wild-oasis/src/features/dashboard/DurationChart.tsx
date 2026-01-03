@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import Heading from "../../ui/Heading";
+import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
+import { useDarkMode } from "../../contexts/DarkModeContext";
 
 const ChartBox = styled.div`
   /* Box */
@@ -18,7 +21,16 @@ const ChartBox = styled.div`
   }
 `;
 
-const startDataLight = [
+interface STAYS {
+  numNights: number;
+}
+interface STARTERDATA {
+  duration: string;
+  value: number;
+  color: string;
+  [key: string]: string | number;
+}
+const startDataLight: STARTERDATA[] = [
   {
     duration: "1 night",
     value: 0,
@@ -61,7 +73,7 @@ const startDataLight = [
   },
 ];
 
-const startDataDark = [
+const startDataDark: STARTERDATA[] = [
   {
     duration: "1 night",
     value: 0,
@@ -104,10 +116,10 @@ const startDataDark = [
   },
 ];
 
-function prepareData(startData, stays) {
+function prepareData(startData: STARTERDATA[], stays: STAYS[]) {
   // A bit ugly code, but sometimes this is what it takes when working with real data 😅
 
-  function incArrayValue(arr, field) {
+  function incArrayValue(arr: STARTERDATA[], field: string) {
     return arr.map((obj) =>
       obj.duration === field ? { ...obj, value: obj.value + 1 } : obj
     );
@@ -130,3 +142,52 @@ function prepareData(startData, stays) {
 
   return data;
 }
+
+function DurationChart({ stays }: { stays: STAYS[] }) {
+  const { isDarkMode } = useDarkMode();
+  const startData = isDarkMode ? startDataDark : startDataLight;
+  const data = prepareData(startData, stays);
+
+  return (
+    <ChartBox>
+      <Heading as="h2">Stay duration summary</Heading>
+      <PieChart
+        style={{
+          width: "100%",
+          height: "240px",
+        }}
+        responsive
+      >
+        <Pie
+          data={data}
+          nameKey="duration"
+          dataKey="value"
+          cx="40%"
+          cy="50%"
+          innerRadius="85"
+          outerRadius="110"
+          paddingAngle={3}
+        >
+          {data.map((entry) => (
+            <Cell
+              fill={entry.color}
+              stroke={entry.color}
+              key={entry.duration}
+            />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend
+          align="right"
+          layout="vertical"
+          verticalAlign="middle"
+          width={"30%" as unknown as number} // lazy
+          iconSize={15}
+          iconType="circle"
+        />
+      </PieChart>
+    </ChartBox>
+  );
+}
+
+export default DurationChart;
