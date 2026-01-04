@@ -1,10 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./ui/ErrorFallback.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={() => window.location.replace("/")}
+    >
+      <App />
+    </ErrorBoundary>
   </StrictMode>
 );
 
@@ -41,6 +48,8 @@ createRoot(document.getElementById("root")!).render(
  *
  * implement dark mode using design tokens and save mode status in the localStorage
  * implement dashboard with amazing chart visulization and statistics and quick actions
+ *
+ * impelement error boundary functionality to handle react render logic error that might happen (using react-error-boundary)
  */
 
 /**
@@ -50,6 +59,6 @@ createRoot(document.getElementById("root")!).render(
  * 3. React Query: Remote state management
  * 4. context api: global ui state management
  * 5. react hook form: form management
- * 6. other tools: React icons - react hot toast - recharts - date-fns - supabase
+ * 6. other tools: React icons - react hot toast - recharts - date-fns - supabase - react error boundary
  * the ways of styling i have learned through out this course css modules - tailwind css - styled components
  */
