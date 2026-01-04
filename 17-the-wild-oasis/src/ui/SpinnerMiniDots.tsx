@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-import { BiLoaderAlt } from "react-icons/bi";
 
 const rotate = keyframes`
     0%   { box-shadow: 15px 0 #fff, -15px 0 #fff2; background: #fff }
