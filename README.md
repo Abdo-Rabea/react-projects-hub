@@ -26,6 +26,7 @@ Each project is listed below with links to:
 | 11  | Workout Timer        | [Repo](./13-workout-timer)    | [Demo](https://workout-timer-rabea.netlify.app/)    |
 | 12  | The Redux Bank       | [Repo](./15-redux-intro)      | [Demo](https://rabea-redux-bank.netlify.app/)       |
 | 13  | Fast React Pizza CO. | [Repo](./16-fast-react-pizza) | [Demo](https://rabea-fast-react-pizza.netlify.app/) |
+| 14  | The Wild Oasis       | [Repo](./17-the-wild-oasis)   | [Demo](https://the-wild-oasis-rabea.netlify.app/)   |
  
 ---
 ## Challenge Index
